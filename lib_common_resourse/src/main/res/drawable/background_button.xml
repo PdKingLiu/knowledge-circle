@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 矩形的圆角弧度 -->
+    <corners android:radius="5dp" />
+    <gradient
+        android:angle="45"
+        android:endColor="#fae46c"
+        android:startColor="#fae46c" />
+</shape>

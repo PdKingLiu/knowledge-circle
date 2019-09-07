@@ -27,6 +27,8 @@ ext {
             gson            : 'com.google.code.gson:gson:2.8.5',
             okhttp          : 'com.squareup.okhttp3:okhttp:3.12.0',
 
+            shapeLoadingView: 'com.github.zzz40500:android-shapeLoadingView:1.0.3.2'
+
     ]
 
 }
