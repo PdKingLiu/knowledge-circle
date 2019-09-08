@@ -15,8 +15,13 @@
         android:src="@mipmap/app_icon" />
 
     <EditText
+        android:id="@+id/et_phone"
         android:layout_width="match_parent"
         android:layout_height="45dp"
+        android:lines="1"
+        android:singleLine="true"
+        android:maxLength="11"
+        android:maxLines="1"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="50dp"
         android:layout_marginRight="20dp"
@@ -33,16 +38,21 @@
         android:background="#cccccc" />
 
     <EditText
+        android:id="@+id/et_password"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
         android:layout_marginRight="20dp"
         android:background="@null"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:hint="请输入密码"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:lines="1"
+        android:singleLine="true"
+        android:maxLength="16"
+        android:maxLines="1" />
 
     <View
         android:layout_width="match_parent"
@@ -52,14 +62,15 @@
         android:background="#cccccc" />
 
     <TextView
+        android:id="@+id/tv_login"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="38dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/background_button"
-        android:text="登录"
         android:gravity="center"
+        android:text="登录"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
 

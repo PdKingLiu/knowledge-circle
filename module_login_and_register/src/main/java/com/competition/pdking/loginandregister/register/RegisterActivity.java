@@ -124,7 +124,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
-    public void showToast() {
+    public void showToast(String msg) {
 
     }
 }

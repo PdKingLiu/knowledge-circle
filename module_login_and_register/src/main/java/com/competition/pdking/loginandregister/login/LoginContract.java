@@ -2,6 +2,7 @@ package com.competition.pdking.loginandregister.login;
 
 import com.competition.pdking.lib_base.BasePresenter;
 import com.competition.pdking.lib_base.BaseView;
+import com.competition.pdking.loginandregister.bean.User;
 
 /**
  * @author liupeidong
@@ -10,13 +11,17 @@ import com.competition.pdking.lib_base.BaseView;
 public interface LoginContract {
 
     interface View extends BaseView {
-        public void loginSucceed();
 
-        public void loginFailure();
+        void loginSucceed(User user);
+
+        void loginFailure(String msg);
+
     }
 
     interface Presenter extends BasePresenter {
-        public void startLogin();
+
+        void startLogin(String phone, String password);
+
     }
 
 }

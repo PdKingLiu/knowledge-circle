@@ -12,6 +12,6 @@ public interface BaseView<T> {
 
     public void hideLoading();
 
-    public void showToast();
+    public void showToast(String msg);
 
 }
