@@ -18,6 +18,7 @@ import com.mingle.widget.LoadingView;
 public class LoadingDialog extends Dialog {
 
     private Context mContext;
+    View view;
 
     public LoadingDialog(Context context, String msg) {
         this(context, R.style.DialogTheme, msg);
@@ -25,11 +26,10 @@ public class LoadingDialog extends Dialog {
 
     public LoadingDialog(Context context, int themeResId, String msg) {
         super(context, themeResId);
-        if (mContext != null) {
+        if (context != null) {
             this.mContext = context;
-            View view =
-                    LayoutInflater.from(context).inflate(R.layout.layout_popwindow_loading_dialog
-                    , null);
+            view = LayoutInflater.from(context).inflate(R.layout.layout_popwindow_loading_dialog,
+                    null);
             ((LoadingView) view.findViewById(R.id.loadView)).setLoadingText(msg);
             setContentView(view);
             Window window = getWindow();

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:orientation="vertical"
-    tools:context=".LayoutActivityMainActivity">
+    tools:context=".login.LoginActivity">
 
     <ImageView
         android:layout_width="80dp"
@@ -52,7 +52,6 @@
         android:background="#cccccc" />
 
     <TextView
-        android:onClick="click"
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_marginLeft="20dp"
@@ -71,12 +70,13 @@
         android:layout_marginTop="5dp">
 
         <Button
+            android:id="@+id/btn_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:background="@android:color/transparent"
             android:text="立即注册"
-            android:textColor="#fce000"
+            android:textColor="#ffd28c"
             android:textSize="16sp" />
 
         <View
