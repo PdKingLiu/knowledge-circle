@@ -50,7 +50,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    implementation project(":module_login_and_register")
+    implementation project(":lib_common_resourse")
+    implementation project(":lib_base")
 
     if (rootProject.ext.isApp) {
 //        引入base和common组件

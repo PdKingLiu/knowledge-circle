@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bnv_circle"
+        android:icon="@drawable/bnv_circle_selector"
+        android:title="圈子" />
+
+    <item
+        android:id="@+id/bnv_community"
+        android:icon="@drawable/bnv_community_selector"
+        android:title="社区" />
+
+    <item
+        android:id="@+id/bnv_news"
+        android:icon="@drawable/bnv_news_selector"
+        android:title="消息" />
+
+    <item
+        android:id="@+id/bnv_my"
+        android:icon="@drawable/bnv_my_selector"
+        android:title="我" />
+
+</menu>

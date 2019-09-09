@@ -1,1 +1,1 @@
-include ':app', ':module_login_and_register', ':lib_base', ':lib_common_resourse'
+include ':app', ':module_login_and_register', ':lib_base', ':lib_common_resourse', ':module_circle', ':module_community', ':module_news', ':module_my'

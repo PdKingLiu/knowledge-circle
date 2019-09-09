@@ -6,21 +6,22 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.competition.pdking.lib_base.BaseActivity;
 import com.competition.pdking.lib_common_resourse.loadingview.LoadingDialog;
 import com.competition.pdking.lib_common_resourse.toast.ToastUtils;
+import com.competition.pdking.lib_common_resourse.utils.ARouterUtils;
 import com.competition.pdking.loginandregister.R;
 import com.competition.pdking.loginandregister.bean.User;
 import com.competition.pdking.loginandregister.register.RegisterActivity;
 
-import cn.bmob.v3.BmobUser;
-
+@Route(path = "/module_login/login_activity")
 public class LoginActivity extends BaseActivity implements LoginContract.View,
         View.OnClickListener {
 
@@ -42,12 +43,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View,
         setContentView(R.layout.layout_activity_login);
         initView();
         presenter = new LoginPresenter(this);
-        if (BmobUser.isLogin()) {
-            User user = BmobUser.getCurrentUser(User.class);
-            Log.d("Lpp", "onCreate: " + user);
-        } else {
-            Log.d("Lpp", "onCreate: " + false);
-        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -88,6 +83,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View,
     public void loginSucceed(User user) {
         hideLoading();
         ToastUtils.showToast(this, "登录成功");
+        ARouter.getInstance().build(ARouterUtils.MainActivity).navigation();
+        finish();
     }
 
     @Override
