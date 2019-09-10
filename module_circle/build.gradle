@@ -58,7 +58,6 @@ dependencies {
     implementation rootProject.ext.dependencies.design
 
     implementation rootProject.ext.dependencies.arouter_api
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     annotationProcessor rootProject.ext.dependencies.arouter_compiler
 
     implementation rootProject.ext.dependencies.bmob_sdk

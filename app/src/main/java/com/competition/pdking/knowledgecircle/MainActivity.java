@@ -3,14 +3,12 @@ package com.competition.pdking.knowledgecircle;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -20,9 +18,6 @@ import com.competition.pdking.lib_common_resourse.loadingview.LoadingDialog;
 import com.competition.pdking.lib_common_resourse.utils.ARouterUtils;
 import com.competition.pdking.loginandregister.bean.User;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import cn.bmob.v3.BmobUser;
 
 
@@ -31,10 +26,10 @@ public class MainActivity extends AppCompatActivity implements BaseView {
 
     private User user;
     private BottomNavigationView bnv;
-    private List<Fragment> fragmentList;
+    private Fragment[] fragments;
     private FragmentManager mFragmentManager;
     private LoadingDialog loading;
-    private String TAG = "Lpp";
+    private int bnvIndex = R.id.bnv_circle;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -42,27 +37,20 @@ public class MainActivity extends AppCompatActivity implements BaseView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_activity_main);
         checkIsLogin();
-
+        initFragment();
+        initView();
     }
 
     private void initFragment() {
-        if (fragmentList == null) {
-            fragmentList = new ArrayList<>();
+        if (fragments == null) {
+            fragments = new Fragment[4];
         }
-        fragmentList.clear();
-        fragmentList.add(ARouterUtils.getCircleFragment());
-        fragmentList.add(ARouterUtils.getCommunityFragment());
-        fragmentList.add(ARouterUtils.getNewsFragment());
-        fragmentList.add(ARouterUtils.getMyFragment());
+        fragments[0] = ARouterUtils.getCircleFragment();
         if (mFragmentManager == null) {
             mFragmentManager = MainActivity.this.getSupportFragmentManager();
         }
-        System.out.println(fragmentList);
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction.add(R.id.fl_container, fragmentList.get(0), "circle");
-        transaction.add(R.id.fl_container, fragmentList.get(1), "community");
-        transaction.add(R.id.fl_container, fragmentList.get(2), "news");
-        transaction.add(R.id.fl_container, fragmentList.get(3), "my");
+        transaction.add(R.id.fl_container, fragments[0], "circle");
         transaction.commit();
     }
 
@@ -70,34 +58,71 @@ public class MainActivity extends AppCompatActivity implements BaseView {
     private void initView() {
         bnv = findViewById(R.id.bnv);
         bnv.setItemIconTintList(null);
-        bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                FragmentTransaction transaction;
-                if (fragmentList == null || fragmentList.size() != 4) {
-                    initFragment();
-                }
-                if (mFragmentManager == null) {
-                    mFragmentManager = MainActivity.this.getSupportFragmentManager();
-                }
-                transaction = mFragmentManager.beginTransaction();
-                switch (menuItem.getItemId()) {
-                    case R.id.bnv_circle:
-                        transaction.show(fragmentList.get(0));
-                        break;
-                    case R.id.bnv_community:
-                        transaction.show(fragmentList.get(1));
-                        break;
-                    case R.id.bnv_news:
-                        transaction.show(fragmentList.get(2));
-                        break;
-                    case R.id.bnv_my:
-                        transaction.show(fragmentList.get(3));
-                        break;
-                }
-                transaction.commit();
-                return true;
+        bnv.setOnNavigationItemSelectedListener(menuItem -> {
+            FragmentTransaction transaction;
+            if (fragments == null) {
+                initFragment();
             }
+            if (mFragmentManager == null) {
+                mFragmentManager = MainActivity.this.getSupportFragmentManager();
+            }
+            transaction = mFragmentManager.beginTransaction();
+            switch (menuItem.getItemId()) {
+                case R.id.bnv_circle:
+                    if (bnvIndex == R.id.bnv_circle) {
+                        break;
+                    }
+                    hideFragment();
+                    bnvIndex = R.id.bnv_circle;
+                    if (fragments[0] == null) {
+                        fragments[0] = ARouterUtils.getCircleFragment();
+                        transaction.add(R.id.fl_container, fragments[0], "circle");
+                    } else {
+                        transaction.show(fragments[0]);
+                    }
+                    break;
+                case R.id.bnv_community:
+                    if (bnvIndex == R.id.bnv_community) {
+                        break;
+                    }
+                    hideFragment();
+                    bnvIndex = R.id.bnv_community;
+                    if (fragments[1] == null) {
+                        fragments[1] = ARouterUtils.getCommunityFragment();
+                        transaction.add(R.id.fl_container, fragments[1], "community");
+                    } else {
+                        transaction.show(fragments[1]);
+                    }
+                    break;
+                case R.id.bnv_news:
+                    if (bnvIndex == R.id.bnv_news) {
+                        break;
+                    }
+                    hideFragment();
+                    bnvIndex = R.id.bnv_news;
+                    if (fragments[2] == null) {
+                        fragments[2] = ARouterUtils.getNewsFragment();
+                        transaction.add(R.id.fl_container, fragments[2], "news");
+                    } else {
+                        transaction.show(fragments[2]);
+                    }
+                    break;
+                case R.id.bnv_my:
+                    if (bnvIndex == R.id.bnv_my) {
+                        break;
+                    }
+                    hideFragment();
+                    bnvIndex = R.id.bnv_my;
+                    if (fragments[3] == null) {
+                        fragments[3] = ARouterUtils.getMyFragment();
+                        transaction.add(R.id.fl_container, fragments[3], "my");
+                    } else {
+                        transaction.show(fragments[3]);
+                    }
+                    break;
+            }
+            transaction.commit();
+            return true;
         });
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
@@ -106,6 +131,36 @@ public class MainActivity extends AppCompatActivity implements BaseView {
                 getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);//设置状态栏黑色字体
             }
         }
+    }
+
+    private void hideFragment() {
+        if (mFragmentManager == null) {
+            mFragmentManager = getSupportFragmentManager();
+        }
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        switch (bnvIndex) {
+            case R.id.bnv_circle:
+                if (fragments != null && fragments[0] != null && !fragments[0].isHidden()) {
+                    fragmentTransaction.hide(fragments[0]);
+                }
+                break;
+            case R.id.bnv_community:
+                if (fragments != null && fragments[1] != null && !fragments[1].isHidden()) {
+                    fragmentTransaction.hide(fragments[1]);
+                }
+                break;
+            case R.id.bnv_news:
+                if (fragments != null && fragments[2] != null && !fragments[2].isHidden()) {
+                    fragmentTransaction.hide(fragments[2]);
+                }
+                break;
+            case R.id.bnv_my:
+                if (fragments != null && fragments[3] != null && !fragments[3].isHidden()) {
+                    fragmentTransaction.hide(fragments[3]);
+                }
+                break;
+        }
+        fragmentTransaction.commit();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
