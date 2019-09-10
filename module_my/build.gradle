@@ -67,6 +67,7 @@ dependencies {
     implementation rootProject.ext.dependencies.okio
     implementation rootProject.ext.dependencies.gson
     implementation rootProject.ext.dependencies.okhttp
+    implementation rootProject.ext.dependencies.circleimageview
 
     implementation project(":lib_common_resourse")
     implementation project(":lib_base")
