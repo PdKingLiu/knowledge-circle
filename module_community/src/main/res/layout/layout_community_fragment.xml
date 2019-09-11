@@ -3,23 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:background="#f8f8f8"
     android:layout_height="match_parent"
+    android:background="#f8f8f8"
+    android:orientation="vertical"
     tools:context=".CommunityFragment">
 
     <android.support.v7.widget.Toolbar
-        android:background="@android:color/white"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
 
         <TextView
-            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="社区"
             android:textColor="@android:color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textSize="20sp" />
 
     </android.support.v7.widget.Toolbar>
 
@@ -35,15 +35,16 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/ll_community"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:src="@drawable/icon_community"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_margin="15dp" />
+                    android:layout_margin="15dp"
+                    android:src="@drawable/icon_community" />
 
                 <TextView
                     android:layout_width="0dp"
