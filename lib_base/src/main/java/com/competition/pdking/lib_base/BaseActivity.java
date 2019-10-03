@@ -18,11 +18,11 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initView();
+        initActionBar();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void initView() {
+    private void initActionBar() {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
             getWindow().setStatusBarColor(Color.WHITE);

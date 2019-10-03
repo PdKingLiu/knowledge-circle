@@ -1,7 +1,6 @@
 package com.competition.pdking.loginandregister.login;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -53,13 +52,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View,
         etPassword = findViewById(R.id.et_password);
         btnRegister.setOnClickListener(this);
         tvLogin.setOnClickListener(this);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-            getWindow().setStatusBarColor(Color.WHITE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);//设置状态栏黑色字体
-            }
-        }
     }
 
     @Override

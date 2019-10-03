@@ -1,7 +1,6 @@
 package com.competition.pdking.loginandregister.register;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -52,13 +51,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         btnGoLogin.setOnClickListener(this);
         btnSMS.setOnClickListener(this);
         tvRegister.setOnClickListener(this);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-            getWindow().setStatusBarColor(Color.WHITE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);//设置状态栏黑色字体
-            }
-        }
     }
 
     @Override
