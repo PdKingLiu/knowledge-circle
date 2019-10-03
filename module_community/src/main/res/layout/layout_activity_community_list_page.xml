@@ -22,15 +22,17 @@
             android:gravity="center_vertical">
 
             <RelativeLayout
+                android:id="@+id/rl_back"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="5dp"
-                android:background="@null">
+                android:background="@null"
+                android:onClick="onClick">
 
                 <Button
-                    android:layout_width="30dp"
-                    android:layout_height="25dp"
+                    android:layout_width="25dp"
+                    android:layout_height="20dp"
                     android:layout_centerInParent="true"
                     android:background="@drawable/icon_back"
                     android:clickable="false" />
@@ -128,12 +130,14 @@
         </android.support.v7.widget.RecyclerView>
 
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/new_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
             android:clickable="true"
+            android:onClick="onClick"
             android:src="@mipmap/icon_new_post"
             app:backgroundTint="#fea419"
             app:elevation="8dp"
