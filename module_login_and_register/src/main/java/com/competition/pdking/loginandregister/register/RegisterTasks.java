@@ -1,6 +1,6 @@
 package com.competition.pdking.loginandregister.register;
 
-import com.competition.pdking.loginandregister.bean.User;
+import com.competition.pdking.lib_base.com.competition.pdking.bean.User;
 
 import java.util.List;
 
@@ -55,7 +55,7 @@ public class RegisterTasks {
                         if (System.currentTimeMillis() - lastSendTime < 60000) {
                             callBack.failure("请" + (60000 - System.currentTimeMillis() + lastSendTime) / 1000 + "秒后重试");
                         } else {
-                            BmobSMS.requestSMSCode(phone, "AppModel", new QueryListener<Integer>() {
+                            BmobSMS.requestSMSCode(phone, "circle", new QueryListener<Integer>() {
                                 @Override
                                 public void done(Integer smsId, BmobException e) {
                                     if (e == null) {
@@ -93,6 +93,8 @@ public class RegisterTasks {
         user.setName("用户" + phone);
         user.setUsername(phone);
         user.setPassword(password);
+        user.setIconUrl("http://www.shidongxuan.top/image/61c57028-2ce2-416a-abd1-991da2126f55" +
+                ".jpg");
         user.signUp(new SaveListener<User>() {
             @Override
             public void done(User user, BmobException e) {

@@ -3,16 +3,28 @@ package com.competition.pdking.module_community.community.new_post.view;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.widget.TextView;
 
 import com.competition.pdking.lib_base.BaseActivity;
+import com.competition.pdking.lib_base.com.competition.pdking.bean.User;
+import com.competition.pdking.lib_common_resourse.loadingview.LoadingDialog;
 import com.competition.pdking.lib_common_resourse.toast.ToastUtils;
 import com.competition.pdking.module_community.R;
+import com.competition.pdking.module_community.community.new_post.NewPostContract;
+import com.competition.pdking.module_community.community.new_post.NewPostPresenter;
+import com.competition.pdking.module_community.community.new_post.bean.Post;
 
-public class PostSettingActivity extends BaseActivity {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+
+import cn.bmob.v3.BmobUser;
+
+public class PostSettingActivity extends BaseActivity implements NewPostContract.ViewOfReleasePost {
 
     private TextView tvModule;
     private TextView tvChat;
@@ -23,12 +35,16 @@ public class PostSettingActivity extends BaseActivity {
 
     private String title;
     private String content;
+    private LoadingDialog loading;
+
+    private NewPostContract.PresenterOfNewPostPage presenterOfNewPostPage;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_activity_post_setting);
+        presenterOfNewPostPage = new NewPostPresenter(this);
         tvModule = findViewById(R.id.tv_module);
         tvChat = findViewById(R.id.tv_chat);
         title = getIntent().getStringExtra("title");
@@ -54,6 +70,19 @@ public class PostSettingActivity extends BaseActivity {
                 ToastUtils.showToast(this, "选择一个主题吧~");
                 return;
             }
+            showLoading("发布中···");
+            Post post = new Post();
+            User user = BmobUser.getCurrentUser(User.class);
+            post.setTitle(title);
+            post.setContent(content);
+            post.setKind(moduleKind);
+            post.setAuthorIcon(user.getIconUrl());
+            post.setCreateData(new Date());
+            post.setTopic(new ArrayList<>(Arrays.asList(strings)));
+            post.setAuthorPhone(user.getUsername());
+            post.setAuthorName(user.getName());
+            post.setAuthorId(user.getObjectId());
+            new Handler().postDelayed(() -> presenterOfNewPostPage.releasePost(post), 1000);
         }
     }
 
@@ -77,5 +106,44 @@ public class PostSettingActivity extends BaseActivity {
                 tvChat.setText(sb.toString());
             }
         }
+    }
+
+    @Override
+    public void releaseSucceed(String postId) {
+        hideLoading();
+        showToast("发布成功");
+    }
+
+    @Override
+    public void releaseFailure(String msg) {
+        hideLoading();
+        showToast("发布失败");
+    }
+
+    @Override
+    public void setPresenter(Object o) {
+
+    }
+
+    @Override
+    public void showLoading(String msg) {
+        if (loading == null) {
+            loading = new LoadingDialog(this, msg);
+        }
+        if (!loading.isShowing()) {
+            runOnUiThread(() -> loading.show());
+        }
+    }
+
+    @Override
+    public void hideLoading() {
+        if (loading != null && loading.isShowing()) {
+            runOnUiThread(() -> loading.dismiss());
+        }
+    }
+
+    @Override
+    public void showToast(String msg) {
+        runOnUiThread(() -> ToastUtils.showToast(this, msg));
     }
 }

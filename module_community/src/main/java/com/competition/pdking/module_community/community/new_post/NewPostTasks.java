@@ -2,12 +2,21 @@ package com.competition.pdking.module_community.community.new_post;
 
 import android.content.Context;
 
+import com.competition.pdking.lib_base.com.competition.pdking.bean.User;
 import com.competition.pdking.module_community.community.new_post.bean.PictureUploadBean;
+import com.competition.pdking.module_community.community.new_post.bean.Post;
 import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FetchUserInfoListener;
+import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 import id.zelory.compressor.Compressor;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -76,9 +85,58 @@ public class NewPostTasks {
         });
     }
 
+    public void releasePost(Post post, ReleaseCallBack callBack) {
+        post.save(new SaveListener<String>() {
+            @Override
+            public void done(String s, BmobException e) {
+                if (e == null) {
+                    updateUser(s, callBack);
+                } else {
+                    callBack.failure(e.getMessage());
+                }
+            }
+        });
+    }
+
+    private void updateUser(String postId, ReleaseCallBack callBack) {
+        BmobUser.fetchUserInfo(new FetchUserInfoListener<BmobUser>() {
+            @Override
+            public void done(BmobUser user, BmobException e) {
+                if (e == null) {
+                    User user1 = BmobUser.getCurrentUser(User.class);
+                    List<String> list = user1.getPostList();
+                    if (list == null) {
+                        list = new ArrayList<>();
+                    }
+                    list.add(postId);
+                    user1.update(new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if (e == null) {
+                                callBack.succeed(postId);
+                            } else {
+                                callBack.failure(e.getMessage());
+                            }
+                        }
+                    });
+                } else {
+                    callBack.failure(e.getMessage());
+                }
+            }
+        });
+    }
+
     interface UploadFileCallBack {
 
         void succeed(String url, File file);
+
+        void failure(String msg);
+
+    }
+
+    interface ReleaseCallBack {
+
+        void succeed(String postId);
 
         void failure(String msg);
 

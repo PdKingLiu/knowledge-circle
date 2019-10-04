@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.competition.pdking.lib_base.BasePresenter;
 import com.competition.pdking.lib_base.BaseView;
+import com.competition.pdking.module_community.community.new_post.bean.Post;
 
 import java.io.File;
 
@@ -15,14 +16,27 @@ public interface NewPostContract {
 
     interface ViewOfNewPostPage extends BaseView {
 
-        void UploadFileSucceed(String url, File file);
+        void uploadFileSucceed(String url, File file);
 
-        void UploadFileFailure(String msg);
+        void uploadFileFailure(String msg);
 
     }
 
+    interface ViewOfReleasePost extends BaseView {
+
+        void releaseSucceed(String postId);
+
+        void releaseFailure(String msg);
+
+    }
+
+
     interface PresenterOfNewPostPage extends BasePresenter {
-        void UploadFile(File file, Context context);
+
+        void uploadFile(File file, Context context);
+
+        void releasePost(Post post);
+
     }
 
 }

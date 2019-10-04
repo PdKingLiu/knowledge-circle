@@ -1,5 +1,6 @@
-package com.competition.pdking.loginandregister.bean;
+package com.competition.pdking.lib_base.com.competition.pdking.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobUser;
@@ -10,25 +11,35 @@ import cn.bmob.v3.BmobUser;
  */
 public class User extends BmobUser {
 
-    private String name;        //昵称
+    private String name = "";        //昵称
 
-    private String iconUrl;     //头像url
+    private String iconUrl = "";     //头像url
 
-    private String sex;         //性别
+    private String sex = "";         //性别
 
-    private String education;   //学历
+    private String education = "";   //学历
 
-    private String school;      //毕业学校
+    private String school = "";      //毕业学校
 
-    private String wantGoCompany; //想去的公司
+    private String wantGoCompany = ""; //想去的公司
 
-    private String work;        //从事的工作
+    private String work = "";        //从事的工作
 
     private long praise;        //获赞
 
-    private List<String> attentionList;     //关注
+    private List<String> attentionList = new ArrayList<>();     //关注
 
-    private List<String> fansList;          //粉丝
+    private List<String> fansList = new ArrayList<>();          //粉丝
+
+    private List<String> postList = new ArrayList<>();          //帖子
+
+    public void setPostList(List<String> postList) {
+        this.postList = postList;
+    }
+
+    public List<String> getPostList() {
+        return postList;
+    }
 
     public void setName(String name) {
         this.name = name;

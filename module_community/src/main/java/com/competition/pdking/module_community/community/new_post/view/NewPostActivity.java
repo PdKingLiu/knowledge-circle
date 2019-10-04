@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -68,13 +67,12 @@ public class NewPostActivity extends BaseActivity implements NewPostContract.Vie
             content = Html.toHtml(mRichEditText.getEditableText(),
                     Html.TO_HTML_PARAGRAPH_LINES_INDIVIDUAL);
             if (title.equals("") || content.equals("")) {
-                ToastUtils.showToast(this, "输入有误~");
+                ToastUtils.showToast(this, "请输入内容！");
                 return;
             }
             Intent intent = new Intent(this, PostSettingActivity.class);
             intent.putExtra("title", title);
             intent.putExtra("content", content);
-            Log.d("Lpp", "HTML:: " + content);
             startActivity(intent);
         }
     }
@@ -92,21 +90,21 @@ public class NewPostActivity extends BaseActivity implements NewPostContract.Vie
                     }
                     showLoading("上传中···");
                     new Handler().postDelayed(() -> presenterOfNewPostPage.
-                            UploadFile(file, NewPostActivity.this), 1000);
+                            uploadFile(file, NewPostActivity.this), 1000);
                 }
                 break;
         }
     }
 
     @Override
-    public void UploadFileSucceed(String url, File file) {
+    public void uploadFileSucceed(String url, File file) {
         hideLoading();
         showToast("上传成功");
         runOnUiThread(() -> mRichEditText.insertImage(file, url));
     }
 
     @Override
-    public void UploadFileFailure(String msg) {
+    public void uploadFileFailure(String msg) {
         hideLoading();
         showToast("上传失败");
     }

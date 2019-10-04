@@ -1,6 +1,7 @@
 package com.competition.pdking.loginandregister.login;
 
-import com.competition.pdking.loginandregister.bean.User;
+
+import com.competition.pdking.lib_base.com.competition.pdking.bean.User;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;

@@ -2,7 +2,7 @@ package com.competition.pdking.loginandregister.login;
 
 import com.competition.pdking.lib_base.BasePresenter;
 import com.competition.pdking.lib_base.BaseView;
-import com.competition.pdking.loginandregister.bean.User;
+import com.competition.pdking.lib_base.com.competition.pdking.bean.User;
 
 /**
  * @author liupeidong

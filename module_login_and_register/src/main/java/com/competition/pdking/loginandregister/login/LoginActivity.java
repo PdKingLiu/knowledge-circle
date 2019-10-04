@@ -13,11 +13,11 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.competition.pdking.lib_base.BaseActivity;
+import com.competition.pdking.lib_base.com.competition.pdking.bean.User;
 import com.competition.pdking.lib_common_resourse.loadingview.LoadingDialog;
 import com.competition.pdking.lib_common_resourse.toast.ToastUtils;
 import com.competition.pdking.lib_common_resourse.utils.ARouterUtils;
 import com.competition.pdking.loginandregister.R;
-import com.competition.pdking.loginandregister.bean.User;
 import com.competition.pdking.loginandregister.register.RegisterActivity;
 
 @Route(path = "/module_login/login_activity")

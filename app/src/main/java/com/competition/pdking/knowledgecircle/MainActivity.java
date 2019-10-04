@@ -12,11 +12,13 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.competition.pdking.lib_base.BaseActivity;
 import com.competition.pdking.lib_base.BaseView;
+import com.competition.pdking.lib_base.com.competition.pdking.bean.User;
 import com.competition.pdking.lib_common_resourse.loadingview.LoadingDialog;
 import com.competition.pdking.lib_common_resourse.utils.ARouterUtils;
-import com.competition.pdking.loginandregister.bean.User;
 
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FetchUserInfoListener;
 
 
 @Route(path = "/module_main/main_activity")
@@ -157,7 +159,11 @@ public class MainActivity extends BaseActivity implements BaseView {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void checkIsLogin() {
         if (BmobUser.isLogin()) {
-            user = BmobUser.getCurrentUser(User.class);
+            BmobUser.fetchUserInfo(new FetchUserInfoListener<BmobUser>() {
+                @Override
+                public void done(BmobUser user, BmobException e) {
+                }
+            });
         } else {
             ARouter.getInstance().build(ARouterUtils.LoginActivity).navigation();
             finish();
