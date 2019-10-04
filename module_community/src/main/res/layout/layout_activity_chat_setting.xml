@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".community.new_post.ChatSettingActivity">
+    tools:context=".community.new_post.view.ChatSettingActivity">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
@@ -102,6 +102,9 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:hint="添加一个话题吧"
+                android:lines="1"
+                android:maxLines="1"
+                android:singleLine="true"
                 android:textSize="19sp" />
 
             <Button
@@ -121,27 +124,31 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="#e5e5e5">
+        android:layout_height="wrap_content"
+        android:background="#e5e5e5"
+        android:paddingBottom="8dp">
 
         <TextView
             android:id="@+id/tv_sum"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
-            android:text="已选：0/5" />
+            android:gravity="center"
+            android:text="已选：0/10"
+            android:textSize="18sp" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="15dp">
-
-        </android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="10dp">
+
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

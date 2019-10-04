@@ -71,6 +71,7 @@ dependencies {
     implementation rootProject.ext.dependencies.okhttp
     implementation rootProject.ext.dependencies.glide
     annotationProcessor rootProject.ext.dependencies.glide_compiler
+    implementation rootProject.ext.dependencies.compressor
 
     implementation project(":lib_common_resourse")
     implementation project(":lib_base")

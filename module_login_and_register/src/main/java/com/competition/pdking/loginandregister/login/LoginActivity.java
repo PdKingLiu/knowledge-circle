@@ -30,7 +30,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View,
     private EditText etPhone;
     private EditText etPassword;
 
-    private LoginPresenter presenter;
+    private LoginContract.Presenter presenter;
 
     private String phone;
     private String password;
@@ -63,7 +63,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View,
             phone = etPhone.getText().toString();
             password = etPassword.getText().toString();
             if (phone.length() == 11 && password.length() >= 6 && password.length() <= 16) {
-                showLoading();
+                showLoading("");
                 new Handler().postDelayed(() -> presenter.startLogin(phone, password), 3000);
             } else {
                 ToastUtils.showToast(this, "账号或密码长度不正确");
@@ -92,7 +92,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View,
     }
 
     @Override
-    public void showLoading() {
+    public void showLoading(String msg) {
         if (loading == null) {
             loading = new LoadingDialog(this, "登录中...");
         }

@@ -8,7 +8,7 @@ public interface BaseView<T> {
 
     public void setPresenter(T t);
 
-    public void showLoading();
+    public void showLoading(String msg);
 
     public void hideLoading();
 

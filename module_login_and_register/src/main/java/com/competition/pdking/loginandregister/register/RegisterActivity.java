@@ -28,7 +28,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private String password;
     private String SMS;
 
-    private RegisterPresenter presenter;
+    private RegisterContract.Presenter presenter;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -106,7 +106,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
-    public void showLoading() {
+    public void showLoading(String msg) {
 
     }
 

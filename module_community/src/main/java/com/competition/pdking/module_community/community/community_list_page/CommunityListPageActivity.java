@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.competition.pdking.lib_base.BaseActivity;
 import com.competition.pdking.module_community.R;
-import com.competition.pdking.module_community.community.new_post.NewPostActivity;
+import com.competition.pdking.module_community.community.new_post.view.NewPostActivity;
 
 public class CommunityListPageActivity extends BaseActivity {
 

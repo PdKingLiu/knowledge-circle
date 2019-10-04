@@ -1,10 +1,11 @@
-package com.competition.pdking.module_community.community.new_post;
+package com.competition.pdking.module_community.community.new_post.view;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
@@ -36,15 +37,14 @@ public class ChatSettingActivity extends BaseActivity {
         recyclerView = findViewById(R.id.rv);
         editText = findViewById(R.id.et_chat);
         tvSum = findViewById(R.id.tv_sum);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
+        recyclerView.setLayoutManager(gridLayoutManager);
         list = new ArrayList<>();
         adapter = new ChatAdapter(list);
         adapter.setListener(i -> {
             list.remove(i);
             sum--;
-            tvSum.setText(String.format("已选：%d/5", sum));
+            tvSum.setText(String.format("已选：%d/10", sum));
             adapter.notifyDataSetChanged();
         });
         recyclerView.setAdapter(adapter);
@@ -55,11 +55,14 @@ public class ChatSettingActivity extends BaseActivity {
         if (view.getId() == R.id.rl_back) {
             finish();
         } else if (view.getId() == R.id.btn_add) {
-            if (sum == 5) {
-                ToastUtils.showToast(this, "最多添加5个！");
+            if (sum == 10) {
+                ToastUtils.showToast(this, "最多添加10个！");
                 return;
             }
             String s = editText.getText().toString();
+            if (s.equals("")) {
+                return;
+            }
             if (list.contains(s)) {
                 ToastUtils.showToast(this, "已经添加过啦！");
                 return;
@@ -67,8 +70,18 @@ public class ChatSettingActivity extends BaseActivity {
             list.add(s);
             editText.setText("");
             sum++;
-            tvSum.setText(String.format("已选：%d/5", sum));
+            tvSum.setText(String.format("已选：%d/10", sum));
             adapter.notifyDataSetChanged();
+        } else if (view.getId() == R.id.rl_next) {
+            if (list.size() == 0) {
+                ToastUtils.showToast(this, "添加一个话题吧!");
+            } else {
+                Object[] strings = list.toArray();
+                Intent intent = new Intent();
+                intent.putExtra("result", strings);
+                setResult(10, intent);
+                finish();
+            }
         }
     }
 }

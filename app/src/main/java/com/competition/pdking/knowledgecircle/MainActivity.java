@@ -170,7 +170,7 @@ public class MainActivity extends BaseActivity implements BaseView {
     }
 
     @Override
-    public void showLoading() {
+    public void showLoading(String msg) {
         if (loading == null) {
             loading = new LoadingDialog(this, "加载中...");
         }

@@ -1,12 +1,13 @@
 package com.competition.pdking.module_community.community.rich_edittext;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.URLSpan;
 import android.util.AttributeSet;
+
+import java.io.File;
 
 /**
  * @author liupeidong
@@ -31,8 +32,8 @@ public class RichEditText extends AppCompatEditText {
         this.context = context;
     }
 
-    public void insertImage(Uri uri, String src) {
-        new ImageInsert(context, this).insertImage(uri, src);
+    public void insertImage(File file, String src) {
+        new ImageInsert(context, this).insertImage(file, src);
     }
 
     public void insertLink(String name, String link) {

@@ -1,4 +1,4 @@
-package com.competition.pdking.module_community.community.new_post;
+package com.competition.pdking.module_community.community.new_post.view;
 
 import android.os.Build;
 import android.os.Bundle;
