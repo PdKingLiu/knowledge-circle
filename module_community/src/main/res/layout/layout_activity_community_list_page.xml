@@ -122,12 +122,22 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/srl_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+
+                android:id="@+id/rv_post_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#f8f8f8"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            </android.support.v7.widget.RecyclerView>
+        </android.support.v4.widget.SwipeRefreshLayout>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/new_post"

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_post_list"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_user_icon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:src="@android:color/darker_gray" />
+
+        <TextView
+            android:textColor="@android:color/black"
+            android:id="@+id/tv_user_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="用户名"
+            android:textSize="15sp" />
+
+        <TextView
+            android:textColor="@android:color/darker_gray"
+            android:id="@+id/tv_time"
+            android:textSize="13sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:text="15小时前" />
+
+        <TextView
+            android:id="@+id/tv_kind"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="13sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="30dp"
+            android:text="猿生活" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_post_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="15dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="一好地方gois电焊工is好的"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tv_post_content"
+        android:layout_width="match_parent"
+        android:textSize="12sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="一好地方gois电焊工is好的" />
+
+    <TextView
+        android:id="@+id/tv_topic"
+        android:layout_width="match_parent"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="12sp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="# 郊游" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/icon_comment" />
+
+        <TextView
+            android:id="@+id/tv_comment"
+            android:layout_width="wrap_content"
+            android:textColor="@android:color/darker_gray"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:text="0"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="25dp"
+            android:src="@mipmap/icon_praise" />
+
+        <TextView
+            android:id="@+id/tv_praise"
+            android:layout_width="wrap_content"
+            android:textColor="@android:color/darker_gray"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:text="0"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="25dp"
+            android:src="@mipmap/icon_scan" />
+
+        <TextView
+            android:id="@+id/tv_scan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/darker_gray"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:text="0"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+</LinearLayout>
