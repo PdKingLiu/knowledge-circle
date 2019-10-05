@@ -5,7 +5,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,8 @@ import com.bumptech.glide.Glide;
 import com.competition.pdking.module_community.R;
 import com.competition.pdking.module_community.community.new_post.bean.Post;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -69,7 +70,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
     @Override
     public void onClick(View v) {
         if (listener != null) {
-            listener.onClick((Integer) v.getTag());
+            listener.onClick(v, (Integer) v.getTag());
         }
     }
 
@@ -116,11 +117,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
             tvComment.setText(String.valueOf(post.getComment()));
             tvPraise.setText(String.valueOf(post.getPraise()));
             tvScan.setText(String.valueOf(post.getScan()));
-            Date date = post.getCreateData();
-            Date now = new Date();
-            int d = (int) (now.getTime() - date.getTime());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = null;
+            try {
+                date = sdf.parse(post.getCreatedAt());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            int d = (int) (System.currentTimeMillis() - date.getTime());
             d = d / 1000;
-            if (d < 60) {
+            if (d < 0) {
+                tvTime.setText("0秒前");
+            } else if (d < 60) {
                 tvTime.setText(String.format("%d秒前", d));
             } else if (d < 60 * 60) {
                 tvTime.setText(String.format("%d分钟前", d / 60));
@@ -141,13 +149,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
             }
 
             int ran = random.nextInt(colors.length);
-            Log.d("Lpp", "setData: " + ran + "-" + colors[ran]);
             tvPostContent.setText(sb.toString().trim());
             tvUserName.setTextColor(colors[ran]);
         }
     }
 
-    interface OnClickListener {
-        void onClick(int i);
+    public interface OnClickListener {
+        void onClick(View view, int i);
     }
 }

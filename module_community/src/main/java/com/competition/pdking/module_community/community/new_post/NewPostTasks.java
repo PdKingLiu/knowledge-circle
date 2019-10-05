@@ -70,8 +70,9 @@ public class NewPostTasks {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 PictureUploadBean bean;
+                String s = response.body().string();
                 try {
-                    bean = new Gson().fromJson(response.body().string(), PictureUploadBean.class);
+                    bean = new Gson().fromJson(s, PictureUploadBean.class);
                 } catch (Exception e) {
                     callBack.failure("上传失败");
                     return;
@@ -86,6 +87,11 @@ public class NewPostTasks {
     }
 
     public void releasePost(Post post, ReleaseCallBack callBack) {
+        User user = BmobUser.getCurrentUser(User.class);
+        post.setAuthorPhone(user.getUsername());
+        post.setAuthorName(user.getName());
+        post.setAuthorId(user.getObjectId());
+        post.setAuthorIcon(user.getIconUrl());
         post.save(new SaveListener<String>() {
             @Override
             public void done(String s, BmobException e) {

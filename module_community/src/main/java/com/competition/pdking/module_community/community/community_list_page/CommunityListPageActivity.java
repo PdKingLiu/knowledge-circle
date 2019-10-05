@@ -3,11 +3,13 @@ package com.competition.pdking.module_community.community.community_list_page;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.competition.pdking.lib_base.BaseActivity;
 import com.competition.pdking.lib_common_resourse.toast.ToastUtils;
@@ -15,6 +17,7 @@ import com.competition.pdking.module_community.R;
 import com.competition.pdking.module_community.community.community_list_page.adapter.PostAdapter;
 import com.competition.pdking.module_community.community.new_post.bean.Post;
 import com.competition.pdking.module_community.community.new_post.view.NewPostActivity;
+import com.competition.pdking.module_community.community.post_details.PostDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,10 +42,13 @@ public class CommunityListPageActivity extends BaseActivity {
         initView();
         initList();
         initListener();
+        srlRefresh.setRefreshing(true);
+        new Handler().postDelayed(this::requestRefresh, 1000);
     }
 
     private void initListener() {
-        srlRefresh.setOnRefreshListener(this::requestRefresh);
+        srlRefresh.setOnRefreshListener(() -> new Handler().postDelayed(this::requestRefresh,
+                1000));
     }
 
     private void requestRefresh() {
@@ -65,6 +71,13 @@ public class CommunityListPageActivity extends BaseActivity {
     private void initList() {
         postList = new ArrayList<>();
         postAdapter = new PostAdapter(postList, this);
+        postAdapter.setListener((view, i) -> {
+            Intent intent = new Intent(this, PostDetailActivity.class);
+            intent.putExtra("postId", postList.get(i).getObjectId());
+            intent.putExtra("textColor",
+                    ((TextView) view.findViewById(R.id.tv_user_name)).getCurrentTextColor());
+            startActivity(intent);
+        });
         rvPostList.setLayoutManager(new LinearLayoutManager(this));
         rvPostList.setAdapter(postAdapter);
     }

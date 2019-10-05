@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.competition.pdking.lib_base.BaseActivity;
-import com.competition.pdking.lib_base.com.competition.pdking.bean.User;
 import com.competition.pdking.lib_common_resourse.loadingview.LoadingDialog;
 import com.competition.pdking.lib_common_resourse.toast.ToastUtils;
 import com.competition.pdking.module_community.R;
@@ -20,9 +19,6 @@ import com.competition.pdking.module_community.community.new_post.bean.Post;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
-
-import cn.bmob.v3.BmobUser;
 
 public class PostSettingActivity extends BaseActivity implements NewPostContract.ViewOfReleasePost {
 
@@ -72,16 +68,10 @@ public class PostSettingActivity extends BaseActivity implements NewPostContract
             }
             showLoading("发布中···");
             Post post = new Post();
-            User user = BmobUser.getCurrentUser(User.class);
             post.setTitle(title);
             post.setContent(content);
             post.setKind(moduleKind);
-            post.setAuthorIcon(user.getIconUrl());
-            post.setCreateData(new Date());
             post.setTopic(new ArrayList<>(Arrays.asList(strings)));
-            post.setAuthorPhone(user.getUsername());
-            post.setAuthorName(user.getName());
-            post.setAuthorId(user.getObjectId());
             new Handler().postDelayed(() -> presenterOfNewPostPage.releasePost(post), 1000);
         }
     }

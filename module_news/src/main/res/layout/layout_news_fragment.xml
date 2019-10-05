@@ -30,7 +30,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:background="@android:color/white"
             android:orientation="vertical">
 
@@ -39,11 +39,11 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:src="@drawable/icon_private"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_margin="15dp" />
+                    android:layout_margin="15dp"
+                    android:src="@drawable/icon_private" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -75,8 +75,8 @@
 
                 <ImageView
                     android:src="@drawable/icon_inform"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="15dp" />
 
@@ -110,8 +110,8 @@
 
                 <ImageView
                     android:src="@drawable/icon_praise"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="15dp" />
 
@@ -145,8 +145,8 @@
 
                 <ImageView
                     android:src="@drawable/icon_reply"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="15dp" />
 
@@ -180,8 +180,8 @@
 
                 <ImageView
                     android:src="@drawable/icon_attention"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="15dp" />
 

@@ -1,7 +1,6 @@
 package com.competition.pdking.module_community.community.new_post.bean;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import cn.bmob.v3.BmobObject;
@@ -24,8 +23,6 @@ public class Post extends BmobObject {
 
     private String authorId = "";
 
-    private Date createData = new Date();
-
     private int comment;
 
     private int praise;
@@ -37,6 +34,24 @@ public class Post extends BmobObject {
     private int kind;
 
     private int scan;
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", authorPhone='" + authorPhone + '\'' +
+                ", authorName='" + authorName + '\'' +
+                ", authorIcon='" + authorIcon + '\'' +
+                ", authorId='" + authorId + '\'' +
+                ", comment=" + comment +
+                ", praise=" + praise +
+                ", collect=" + collect +
+                ", Topic=" + Topic +
+                ", kind=" + kind +
+                ", scan=" + scan +
+                '}';
+    }
 
     public void setAuthorId(String authorId) {
         this.authorId = authorId;
@@ -52,10 +67,6 @@ public class Post extends BmobObject {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public void setCreateData(Date createData) {
-        this.createData = createData;
     }
 
     public void setComment(int comment) {
@@ -112,10 +123,6 @@ public class Post extends BmobObject {
 
     public String getAuthorIcon() {
         return authorIcon;
-    }
-
-    public Date getCreateData() {
-        return createData;
     }
 
     public int getComment() {

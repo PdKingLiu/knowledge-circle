@@ -32,7 +32,7 @@ public class ImageInsert {
 
     public void insertImage(File file, String src) {
         final int maxWidth =
-                richEditText.getMeasuredWidth() - richEditText.getPaddingLeft() - richEditText.getPaddingRight() - 200;
+                (richEditText.getMeasuredWidth() - richEditText.getPaddingLeft() - richEditText.getPaddingRight()) / 2;
         RequestOptions options = new RequestOptions()
                 .centerCrop()
                 .placeholder(R.mipmap.ic_launcher)
@@ -53,9 +53,9 @@ public class ImageInsert {
     public void image(String src, Bitmap pic) {
         String img_str = "img";
         int start = richEditText.getSelectionStart();
-        SpannableString ss = new SpannableString("\nimg\n");
+        SpannableString ss = new SpannableString("img");
         MyImageSpan myImgSpan = new MyImageSpan(context, pic, Uri.parse(src));
-        ss.setSpan(myImgSpan, 1, img_str.length() + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(myImgSpan, 0, img_str.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         richEditText.getEditableText().insert(start, ss);// 设置ss要添加的位置
         richEditText.requestLayout();
         richEditText.requestFocus();
