@@ -105,8 +105,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
         @SuppressLint("DefaultLocale")
         public void setData(Post post, int i) {
             view.setTag(i);
-            Glide.with(context).load(post.getAuthorIcon()).into(civUserIcon);
-            tvUserName.setText(post.getAuthorName());
+            Glide.with(context).load(post.getAuthor().getIconUrl()).into(civUserIcon);
+            tvUserName.setText(post.getAuthor().getName());
             tvKind.setText(modules[post.getKind()]);
             tvPostName.setText(post.getTitle());
             StringBuilder sb = new StringBuilder("#");
@@ -127,7 +127,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
             int d = (int) (System.currentTimeMillis() - date.getTime());
             d = d / 1000;
             if (d < 0) {
-                tvTime.setText("0秒前");
+                tvTime.setText("刚刚");
             } else if (d < 60) {
                 tvTime.setText(String.format("%d秒前", d));
             } else if (d < 60 * 60) {

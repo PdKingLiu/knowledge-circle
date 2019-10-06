@@ -8,6 +8,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,7 +18,7 @@ import com.competition.pdking.module_community.R;
 import com.competition.pdking.module_community.community.community_list_page.adapter.PostAdapter;
 import com.competition.pdking.module_community.community.new_post.bean.Post;
 import com.competition.pdking.module_community.community.new_post.view.NewPostActivity;
-import com.competition.pdking.module_community.community.post_details.PostDetailActivity;
+import com.competition.pdking.module_community.community.post_details.view.PostDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,9 +54,12 @@ public class CommunityListPageActivity extends BaseActivity {
 
     private void requestRefresh() {
         BmobQuery<Post> postBmobQuery = new BmobQuery<>();
+        postBmobQuery.order("-createdAt");
+        postBmobQuery.include("author,scan");
         postBmobQuery.findObjects(new FindListener<Post>() {
             @Override
             public void done(List<Post> list, BmobException e) {
+                Log.d("Lpp", "requestRefresh: " + list);
                 srlRefresh.setRefreshing(false);
                 if (e == null || list != null) {
                     postList.clear();

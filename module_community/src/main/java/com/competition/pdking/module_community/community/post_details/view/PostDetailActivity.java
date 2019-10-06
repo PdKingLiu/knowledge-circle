@@ -1,4 +1,4 @@
-package com.competition.pdking.module_community.community.post_details;
+package com.competition.pdking.module_community.community.post_details.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -16,6 +16,8 @@ import com.competition.pdking.lib_common_resourse.loadingview.LoadingDialog;
 import com.competition.pdking.lib_common_resourse.toast.ToastUtils;
 import com.competition.pdking.module_community.R;
 import com.competition.pdking.module_community.community.new_post.bean.Post;
+import com.competition.pdking.module_community.community.post_details.PostDetailContract;
+import com.competition.pdking.module_community.community.post_details.PostDetailPresenter;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -76,9 +78,9 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
 
     @SuppressLint("DefaultLocale")
     private void loadPage() {
-        Glide.with(this).load(post.getAuthorIcon()).into(civUserIcon);
+        Glide.with(this).load(post.getAuthor().getIconUrl()).into(civUserIcon);
         tvTitle.setText(post.getTitle());
-        tvUserName.setText(post.getAuthorName());
+        tvUserName.setText(post.getAuthor().getName());
         tvTime.setText(post.getCreatedAt());
         tvScan.setText(String.format("%d浏览", post.getScan()));
         StringBuilder sb = new StringBuilder("#");

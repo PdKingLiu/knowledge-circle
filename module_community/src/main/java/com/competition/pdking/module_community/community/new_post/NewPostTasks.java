@@ -9,14 +9,10 @@ import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FetchUserInfoListener;
 import cn.bmob.v3.listener.SaveListener;
-import cn.bmob.v3.listener.UpdateListener;
 import id.zelory.compressor.Compressor;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -87,44 +83,12 @@ public class NewPostTasks {
     }
 
     public void releasePost(Post post, ReleaseCallBack callBack) {
-        User user = BmobUser.getCurrentUser(User.class);
-        post.setAuthorPhone(user.getUsername());
-        post.setAuthorName(user.getName());
-        post.setAuthorId(user.getObjectId());
-        post.setAuthorIcon(user.getIconUrl());
+        post.setAuthor(BmobUser.getCurrentUser(User.class));
         post.save(new SaveListener<String>() {
             @Override
             public void done(String s, BmobException e) {
                 if (e == null) {
-                    updateUser(s, callBack);
-                } else {
-                    callBack.failure(e.getMessage());
-                }
-            }
-        });
-    }
-
-    private void updateUser(String postId, ReleaseCallBack callBack) {
-        BmobUser.fetchUserInfo(new FetchUserInfoListener<BmobUser>() {
-            @Override
-            public void done(BmobUser user, BmobException e) {
-                if (e == null) {
-                    User user1 = BmobUser.getCurrentUser(User.class);
-                    List<String> list = user1.getPostList();
-                    if (list == null) {
-                        list = new ArrayList<>();
-                    }
-                    list.add(postId);
-                    user1.update(new UpdateListener() {
-                        @Override
-                        public void done(BmobException e) {
-                            if (e == null) {
-                                callBack.succeed(postId);
-                            } else {
-                                callBack.failure(e.getMessage());
-                            }
-                        }
-                    });
+                    callBack.succeed(s);
                 } else {
                     callBack.failure(e.getMessage());
                 }

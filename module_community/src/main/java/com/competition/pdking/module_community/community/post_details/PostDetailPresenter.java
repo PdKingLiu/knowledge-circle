@@ -16,7 +16,7 @@ public class PostDetailPresenter implements PostDetailContract.Presenter {
 
     public PostDetailPresenter(PostDetailContract.View view) {
         this.view = view;
-        tasks = new PostDetailTasks(this);
+        tasks = new PostDetailTasks();
     }
 
     @Override

@@ -1,9 +1,11 @@
 package com.competition.pdking.module_community.community.new_post.bean;
 
-import java.util.ArrayList;
+import com.competition.pdking.lib_base.com.competition.pdking.bean.User;
+
 import java.util.List;
 
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.datatype.BmobRelation;
 
 /**
  * @author liupeidong
@@ -11,17 +13,11 @@ import cn.bmob.v3.BmobObject;
  */
 public class Post extends BmobObject {
 
-    private String title = "";
+    private User author;
 
-    private String content = "";
+    private String title;
 
-    private String authorPhone = "";
-
-    private String authorName = "";
-
-    private String authorIcon = "";
-
-    private String authorId = "";
+    private String content;
 
     private int comment;
 
@@ -29,36 +25,47 @@ public class Post extends BmobObject {
 
     private int collect;
 
-    private List<String> Topic = new ArrayList<>();
-
     private int kind;
+
+    private List<String> Topic;
+
+    private BmobRelation scanList;
 
     private int scan;
 
     @Override
     public String toString() {
         return "Post{" +
-                "title='" + title + '\'' +
+                "author=" + author +
+                ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
-                ", authorPhone='" + authorPhone + '\'' +
-                ", authorName='" + authorName + '\'' +
-                ", authorIcon='" + authorIcon + '\'' +
-                ", authorId='" + authorId + '\'' +
                 ", comment=" + comment +
                 ", praise=" + praise +
                 ", collect=" + collect +
-                ", Topic=" + Topic +
                 ", kind=" + kind +
+                ", Topic=" + Topic +
                 ", scan=" + scan +
                 '}';
     }
 
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
+    public void setScanList(BmobRelation scanList) {
+        this.scanList = scanList;
     }
 
-    public String getAuthorId() {
-        return authorId;
+    public void setScan(int scan) {
+        this.scan = scan;
+    }
+
+    public BmobRelation getScanList() {
+        return scanList;
+    }
+
+    public int getScan() {
+        return scan;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     public void setTitle(String title) {
@@ -81,16 +88,16 @@ public class Post extends BmobObject {
         this.collect = collect;
     }
 
-    public void setTopic(List<String> topic) {
-        Topic = topic;
-    }
-
     public void setKind(int kind) {
         this.kind = kind;
     }
 
-    public void setScan(int scan) {
-        this.scan = scan;
+    public void setTopic(List<String> topic) {
+        Topic = topic;
+    }
+
+    public User getAuthor() {
+        return author;
     }
 
     public String getTitle() {
@@ -99,30 +106,6 @@ public class Post extends BmobObject {
 
     public String getContent() {
         return content;
-    }
-
-    public void setAuthorPhone(String authorPhone) {
-        this.authorPhone = authorPhone;
-    }
-
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
-    }
-
-    public void setAuthorIcon(String authorIcon) {
-        this.authorIcon = authorIcon;
-    }
-
-    public String getAuthorPhone() {
-        return authorPhone;
-    }
-
-    public String getAuthorName() {
-        return authorName;
-    }
-
-    public String getAuthorIcon() {
-        return authorIcon;
     }
 
     public int getComment() {
@@ -137,15 +120,12 @@ public class Post extends BmobObject {
         return collect;
     }
 
-    public List<String> getTopic() {
-        return Topic;
-    }
-
     public int getKind() {
         return kind;
     }
 
-    public int getScan() {
-        return scan;
+    public List<String> getTopic() {
+        return Topic;
     }
+
 }

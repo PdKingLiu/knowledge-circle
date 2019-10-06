@@ -16,11 +16,15 @@ import com.bumptech.glide.request.FutureTarget;
 import com.competition.pdking.lib_base.com.competition.pdking.bean.User;
 import com.competition.pdking.module_community.community.new_post.bean.Post;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobPointer;
+import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
 
@@ -32,25 +36,20 @@ import static android.text.Html.FROM_HTML_SEPARATOR_LINE_BREAK_PARAGRAPH;
  */
 public class PostDetailTasks {
 
-    private PostDetailContract.Presenter presenter;
-
-    public PostDetailTasks(PostDetailContract.Presenter presenter) {
-        this.presenter = presenter;
-    }
-
     public void loadPostData(String postId, Activity activity, int width, CallBack callBack) {
         BmobQuery<Post> query = new BmobQuery<>();
+        query.include("author");
         query.getObject(postId, new QueryListener<Post>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void done(Post post, BmobException e) {
                 if (e == null) {
                     if (post == null) {
                         callBack.failure("加载失败");
                     } else {
-                        boolean b = post.getAuthorId().
-                                equals(BmobUser.getCurrentUser(User.class).getObjectId());
-                        callBack.succeed(post, b);
-                        updatePostScan(post);
+                        callBack.succeed(post,
+                                post.getAuthor().getObjectId().equals(BmobUser.getCurrentUser(User.class).getObjectId()));
+                        updatePostScanList(post);
                         loadContentText(post.getContent(), activity, width, callBack);
                     }
                 } else {
@@ -90,7 +89,6 @@ public class PostDetailTasks {
         }).start();
     }
 
-
     public Bitmap drawableToBitmap(Drawable drawable) {// drawable 转换成 bitmap
         int width = drawable.getIntrinsicWidth(); // 取 drawable 的长宽
         int height = drawable.getIntrinsicHeight();
@@ -117,12 +115,42 @@ public class PostDetailTasks {
         return new BitmapDrawable(activity.getResources(), newbmp); // 把 bitmap 转换成 drawable 并返回
     }
 
-    private void updatePostScan(Post post) {
-        post.setScan(post.getScan() + 1);
+    /*
+     * 更新访问过的用户
+     * */
+    private void updatePostScanList(Post post) {
+        BmobRelation relation = new BmobRelation();
+        User user = new User();
+        user.setObjectId(BmobUser.getCurrentUser(User.class).getObjectId());
+        relation.add(user);
+        post.setScanList(relation);
         post.update(post.getObjectId(), new UpdateListener() {
             @Override
             public void done(BmobException e) {
+                if (e == null) {
+                    updatePostScan(post);
+                }
+            }
+        });
+    }
 
+
+    /*
+     * 更新scan的数值
+     * */
+    private void updatePostScan(Post post) {
+        BmobQuery<User> query = new BmobQuery<>();
+        query.addWhereRelatedTo("scanList", new BmobPointer(post));
+        query.findObjects(new FindListener<User>() {
+            @Override
+            public void done(List<User> list, BmobException e) {
+                post.setScan(list.size());
+                post.update(new UpdateListener() {
+                    @Override
+                    public void done(BmobException e) {
+
+                    }
+                });
             }
         });
     }
