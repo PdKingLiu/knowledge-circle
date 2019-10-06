@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.FutureTarget;
 import com.competition.pdking.lib_base.com.competition.pdking.bean.User;
 import com.competition.pdking.module_community.community.new_post.bean.Post;
+import com.competition.pdking.module_community.community.post_details.bean.Comment;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -26,6 +27,7 @@ import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 import static android.text.Html.FROM_HTML_SEPARATOR_LINE_BREAK_PARAGRAPH;
@@ -155,6 +157,45 @@ public class PostDetailTasks {
         });
     }
 
+    public void sendComment(String comment, String postId, SendCommentCallBack callBack) {
+        Post post = new Post();
+        post.setObjectId(postId);
+        Comment com = new Comment();
+        com.setPost(post);
+        com.setUser(BmobUser.getCurrentUser(User.class));
+        com.setContent(comment);
+        com.save(new SaveListener<String>() {
+            @Override
+            public void done(String s, BmobException e) {
+                if (e == null) {
+                    com.setObjectId(s);
+                    callBack.succeed(com);
+                } else {
+                    callBack.failure(e.getMessage());
+                }
+            }
+        });
+    }
+
+    public void loadComment(String postId, LoadCommentCallBack callBack) {
+        BmobQuery<Comment> query = new BmobQuery<>();
+        Post post = new Post();
+        post.setObjectId(postId);
+        query.addWhereEqualTo("post", new BmobPointer(post));
+        query.include("user");
+        query.order("updatedAt");
+        query.findObjects(new FindListener<Comment>() {
+            @Override
+            public void done(List<Comment> list, BmobException e) {
+                if (e == null) {
+                    callBack.succeed(list);
+                } else {
+                    callBack.failure(e.getMessage());
+                }
+            }
+        });
+    }
+
     interface CallBack {
 
         void contentText(CharSequence text);
@@ -165,5 +206,21 @@ public class PostDetailTasks {
 
     }
 
+
+    interface SendCommentCallBack {
+
+        void succeed(Comment comment);
+
+        void failure(String msg);
+
+    }
+
+    interface LoadCommentCallBack {
+
+        void succeed(List<Comment> commentList);
+
+        void failure(String msg);
+
+    }
 
 }

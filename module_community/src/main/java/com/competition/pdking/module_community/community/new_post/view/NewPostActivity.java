@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -51,6 +52,7 @@ public class NewPostActivity extends BaseActivity implements NewPostContract.Vie
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void onClick(View view) {
+        Log.d("Lpp", "onClick: " + view);
         if (view.getId() == R.id.rl_back) {
             finish();
         } else if (view.getId() == R.id.iv_picture) {

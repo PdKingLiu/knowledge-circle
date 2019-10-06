@@ -13,6 +13,14 @@ import cn.bmob.v3.datatype.BmobRelation;
  */
 public class Post extends BmobObject {
 
+    @Override
+    public String toString() {
+        return "Post{" +
+                "author=" + author +
+                ", title='" + title + '\'' +
+                '}';
+    }
+
     private User author;
 
     private String title;
@@ -32,21 +40,6 @@ public class Post extends BmobObject {
     private BmobRelation scanList;
 
     private int scan;
-
-    @Override
-    public String toString() {
-        return "Post{" +
-                "author=" + author +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", comment=" + comment +
-                ", praise=" + praise +
-                ", collect=" + collect +
-                ", kind=" + kind +
-                ", Topic=" + Topic +
-                ", scan=" + scan +
-                '}';
-    }
 
     public void setScanList(BmobRelation scanList) {
         this.scanList = scanList;

@@ -10,6 +10,14 @@ import cn.bmob.v3.BmobUser;
  */
 public class User extends BmobUser {
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", iconUrl='" + iconUrl + '\'' +
+                '}';
+    }
+
     private String name;        //昵称
 
     private String iconUrl;     //头像url

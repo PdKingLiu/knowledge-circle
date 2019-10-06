@@ -8,7 +8,6 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -59,7 +58,6 @@ public class CommunityListPageActivity extends BaseActivity {
         postBmobQuery.findObjects(new FindListener<Post>() {
             @Override
             public void done(List<Post> list, BmobException e) {
-                Log.d("Lpp", "requestRefresh: " + list);
                 srlRefresh.setRefreshing(false);
                 if (e == null || list != null) {
                     postList.clear();

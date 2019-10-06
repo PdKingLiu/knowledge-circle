@@ -3,6 +3,9 @@ package com.competition.pdking.module_community.community.post_details;
 import android.app.Activity;
 
 import com.competition.pdking.module_community.community.new_post.bean.Post;
+import com.competition.pdking.module_community.community.post_details.bean.Comment;
+
+import java.util.List;
 
 /**
  * @author liupeidong
@@ -35,6 +38,36 @@ public class PostDetailPresenter implements PostDetailContract.Presenter {
             @Override
             public void failure(String msg) {
                 view.loadDataFailure(msg);
+            }
+        });
+    }
+
+    @Override
+    public void sendComment(String content, String postId) {
+        tasks.sendComment(content, postId, new PostDetailTasks.SendCommentCallBack() {
+            @Override
+            public void succeed(Comment comment) {
+                view.sendCommentSucceed(comment);
+            }
+
+            @Override
+            public void failure(String msg) {
+                view.sendCommentFailure(msg);
+            }
+        });
+    }
+
+    @Override
+    public void loadComment(String postId) {
+        tasks.loadComment(postId, new PostDetailTasks.LoadCommentCallBack() {
+            @Override
+            public void succeed(List<Comment> commentList) {
+                view.loadCommentSucceed(commentList);
+            }
+
+            @Override
+            public void failure(String msg) {
+                view.loadCommentFailure(msg);
             }
         });
     }
