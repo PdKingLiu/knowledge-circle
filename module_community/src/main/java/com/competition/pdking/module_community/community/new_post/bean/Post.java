@@ -13,49 +13,29 @@ import cn.bmob.v3.datatype.BmobRelation;
  */
 public class Post extends BmobObject {
 
-    @Override
-    public String toString() {
-        return "Post{" +
-                "author=" + author +
-                ", title='" + title + '\'' +
-                '}';
-    }
-
     private User author;
 
     private String title;
 
     private String content;
 
-    private int comment;
+    private Integer comment;
 
-    private int praise;
+    private Integer praise;
 
-    private int collect;
+    private Integer collect;
 
-    private int kind;
+    private Integer kind;
 
     private List<String> Topic;
 
     private BmobRelation scanList;
 
-    private int scan;
+    private BmobRelation praiseList;
 
-    public void setScanList(BmobRelation scanList) {
-        this.scanList = scanList;
-    }
+    private BmobRelation collectList;
 
-    public void setScan(int scan) {
-        this.scan = scan;
-    }
-
-    public BmobRelation getScanList() {
-        return scanList;
-    }
-
-    public int getScan() {
-        return scan;
-    }
+    private Integer scan;
 
     public void setAuthor(User author) {
         this.author = author;
@@ -69,24 +49,40 @@ public class Post extends BmobObject {
         this.content = content;
     }
 
-    public void setComment(int comment) {
+    public void setComment(Integer comment) {
         this.comment = comment;
     }
 
-    public void setPraise(int praise) {
+    public void setPraise(Integer praise) {
         this.praise = praise;
     }
 
-    public void setCollect(int collect) {
+    public void setCollect(Integer collect) {
         this.collect = collect;
     }
 
-    public void setKind(int kind) {
+    public void setKind(Integer kind) {
         this.kind = kind;
     }
 
     public void setTopic(List<String> topic) {
         Topic = topic;
+    }
+
+    public void setScanList(BmobRelation scanList) {
+        this.scanList = scanList;
+    }
+
+    public void setPraiseList(BmobRelation praiseList) {
+        this.praiseList = praiseList;
+    }
+
+    public void setCollectList(BmobRelation collectList) {
+        this.collectList = collectList;
+    }
+
+    public void setScan(Integer scan) {
+        this.scan = scan;
     }
 
     public User getAuthor() {
@@ -101,19 +97,19 @@ public class Post extends BmobObject {
         return content;
     }
 
-    public int getComment() {
+    public Integer getComment() {
         return comment;
     }
 
-    public int getPraise() {
+    public Integer getPraise() {
         return praise;
     }
 
-    public int getCollect() {
+    public Integer getCollect() {
         return collect;
     }
 
-    public int getKind() {
+    public Integer getKind() {
         return kind;
     }
 
@@ -121,4 +117,19 @@ public class Post extends BmobObject {
         return Topic;
     }
 
+    public BmobRelation getScanList() {
+        return scanList;
+    }
+
+    public BmobRelation getPraiseList() {
+        return praiseList;
+    }
+
+    public BmobRelation getCollectList() {
+        return collectList;
+    }
+
+    public Integer getScan() {
+        return scan;
+    }
 }

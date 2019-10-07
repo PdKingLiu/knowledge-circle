@@ -1,22 +1,13 @@
 package com.competition.pdking.lib_base.com.competition.pdking.bean;
 
-import java.util.List;
-
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobRelation;
 
 /**
  * @author liupeidong
  * Created on 2019/9/8 17:40
  */
 public class User extends BmobUser {
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", iconUrl='" + iconUrl + '\'' +
-                '}';
-    }
 
     private String name;        //昵称
 
@@ -32,21 +23,17 @@ public class User extends BmobUser {
 
     private String work;        //从事的工作
 
-    private long praise;        //获赞
+    private BmobRelation attentionList;     //关注
 
-    private List<String> attentionList;     //关注
+    private Integer post;
 
-    private List<String> fansList;          //粉丝
+    private Integer collect;
 
-    private List<String> postList;          //帖子
+    private Integer attention;
 
-    public void setPostList(List<String> postList) {
-        this.postList = postList;
-    }
+    private Integer fans;
 
-    public List<String> getPostList() {
-        return postList;
-    }
+    private Integer praise;
 
     public void setName(String name) {
         this.name = name;
@@ -76,16 +63,28 @@ public class User extends BmobUser {
         this.work = work;
     }
 
-    public void setPraise(long praise) {
-        this.praise = praise;
-    }
-
-    public void setAttentionList(List<String> attentionList) {
+    public void setAttentionList(BmobRelation attentionList) {
         this.attentionList = attentionList;
     }
 
-    public void setFansList(List<String> fansList) {
-        this.fansList = fansList;
+    public void setPost(Integer post) {
+        this.post = post;
+    }
+
+    public void setCollect(Integer collect) {
+        this.collect = collect;
+    }
+
+    public void setAttention(Integer attention) {
+        this.attention = attention;
+    }
+
+    public void setFans(Integer fans) {
+        this.fans = fans;
+    }
+
+    public void setPraise(Integer praise) {
+        this.praise = praise;
     }
 
     public String getName() {
@@ -116,15 +115,27 @@ public class User extends BmobUser {
         return work;
     }
 
-    public long getPraise() {
-        return praise;
-    }
-
-    public List<String> getAttentionList() {
+    public BmobRelation getAttentionList() {
         return attentionList;
     }
 
-    public List<String> getFansList() {
-        return fansList;
+    public Integer getPost() {
+        return post;
+    }
+
+    public Integer getCollect() {
+        return collect;
+    }
+
+    public Integer getAttention() {
+        return attention;
+    }
+
+    public Integer getFans() {
+        return fans;
+    }
+
+    public Integer getPraise() {
+        return praise;
     }
 }

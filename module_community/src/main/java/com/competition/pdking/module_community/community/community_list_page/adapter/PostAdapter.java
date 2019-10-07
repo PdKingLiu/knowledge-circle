@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.competition.pdking.lib_common_resourse.constant.Constant;
 import com.competition.pdking.module_community.R;
 import com.competition.pdking.module_community.community.new_post.bean.Post;
 
@@ -30,10 +31,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 
     private List<Post> list;
     private Context context;
-    private String[] modules = {"技术交流", "笔试面经", "猿生活", "资源分享", "我要提问",
-            "招聘信息", "职业发展", "产品运营", "留学生", "工作以后"};
-    private int[] colors = {0xFFC278E7, 0xFFA1A1A1, 0xFFFC7123, 0xFFF34C54,
-            0xFFE8CA2D, 0xFF418AC3, 0xFF10B4D2, 0xFF42C1A2};
 
     private OnClickListener listener;
 
@@ -107,7 +104,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
             view.setTag(i);
             Glide.with(context).load(post.getAuthor().getIconUrl()).into(civUserIcon);
             tvUserName.setText(post.getAuthor().getName());
-            tvKind.setText(modules[post.getKind()]);
+            tvKind.setText(Constant.postModules[post.getKind()]);
             tvPostName.setText(post.getTitle());
             StringBuilder sb = new StringBuilder("#");
             for (String s : post.getTopic()) {
@@ -148,9 +145,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
                 }
             }
 
-            int ran = random.nextInt(colors.length);
+            int ran =
+                    Math.abs(post.getAuthor().getObjectId().hashCode()) % Constant.userColors.length;
             tvPostContent.setText(sb.toString().trim());
-            tvUserName.setTextColor(colors[ran]);
+            tvUserName.setTextColor(Constant.userColors[ran]);
         }
     }
 

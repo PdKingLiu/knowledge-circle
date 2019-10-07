@@ -31,6 +31,10 @@ public interface PostDetailContract {
 
         void loadCommentFailure(String msg);
 
+        void loadPraiseSumAndIsPraise(int sum, boolean isPraise);
+
+        void loadCollectSumAndIsCollect(int sum, boolean isCollect);
+
     }
 
     interface Presenter extends BasePresenter {
@@ -40,6 +44,19 @@ public interface PostDetailContract {
         void sendComment(String content, String postId);
 
         void loadComment(String postId);
+
+        void getIsPraiseAndSum(String postId);
+
+        void sendPraiseMessage(String postId);
+
+        void sendCancelPraise(String postId);
+
+        void getIsCollectAndSum(String postId);
+
+        void sendCollectMessage(String postId);
+
+        void sendCancelCollect(String postId);
+
 
     }
 

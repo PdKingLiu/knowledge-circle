@@ -83,6 +83,10 @@ public class NewPostTasks {
     }
 
     public void releasePost(Post post, ReleaseCallBack callBack) {
+        post.setCollect(0);
+        post.setPraise(0);
+        post.setComment(0);
+        post.setScan(0);
         post.setAuthor(BmobUser.getCurrentUser(User.class));
         post.save(new SaveListener<String>() {
             @Override

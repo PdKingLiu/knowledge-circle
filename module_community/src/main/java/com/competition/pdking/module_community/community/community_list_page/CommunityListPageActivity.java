@@ -9,7 +9,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
 
 import com.competition.pdking.lib_base.BaseActivity;
 import com.competition.pdking.lib_common_resourse.toast.ToastUtils;
@@ -76,8 +75,6 @@ public class CommunityListPageActivity extends BaseActivity {
         postAdapter.setListener((view, i) -> {
             Intent intent = new Intent(this, PostDetailActivity.class);
             intent.putExtra("postId", postList.get(i).getObjectId());
-            intent.putExtra("textColor",
-                    ((TextView) view.findViewById(R.id.tv_user_name)).getCurrentTextColor());
             startActivity(intent);
         });
         rvPostList.setLayoutManager(new LinearLayoutManager(this));

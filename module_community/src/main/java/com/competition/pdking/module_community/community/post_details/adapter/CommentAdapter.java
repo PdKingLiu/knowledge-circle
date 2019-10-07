@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.competition.pdking.lib_base.com.competition.pdking.bean.User;
+import com.competition.pdking.lib_common_resourse.constant.Constant;
 import com.competition.pdking.module_community.R;
 import com.competition.pdking.module_community.community.post_details.bean.Comment;
 
@@ -75,6 +76,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             Comment comment = commentList.get(i);
             Glide.with(context).load(comment.getUser().getIconUrl()).into(civUserIcon);
             tvUserName.setText(comment.getUser().getName());
+            tvUserName.setTextColor(Constant.userColors[Math.abs(comment.getUser().getObjectId().hashCode()) % Constant.userColors.length]);
             tvLevel.setText(String.format("%d#", i + 1));
             tvTime.setText(comment.getCreatedAt());
             tvContent.setText(comment.getContent());

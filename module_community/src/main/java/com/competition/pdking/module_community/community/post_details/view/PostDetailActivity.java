@@ -2,7 +2,6 @@ package com.competition.pdking.module_community.community.post_details.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -11,12 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.competition.pdking.lib_base.BaseActivity;
+import com.competition.pdking.lib_common_resourse.constant.Constant;
 import com.competition.pdking.lib_common_resourse.loadingview.LoadingDialog;
 import com.competition.pdking.lib_common_resourse.toast.ToastUtils;
 import com.competition.pdking.module_community.R;
@@ -46,12 +46,23 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
     private Post post;
 
     private EditText etComment;
-    private RelativeLayout rlComment;
     private RecyclerView rvCommentList;
     private LinearLayout llComment;
     private CommentAdapter adapter;
     private List<Comment> commentList;
     private TextView tvListHeader;
+    private TextView tvCommentSum;
+
+    private ImageView ivPraise;
+    private ImageView ivCollect;
+    private TextView tvPraise;
+    private TextView tvCollect;
+
+    private boolean isPraise = false;
+    private boolean isCollect = false;
+    private int praiseSum = 0;
+    private int collectSum = 0;
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -76,6 +87,8 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
         presenter.loadPostData(postId, this, (int) (((WindowManager) this.
                 getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getWidth() * 0.75));
         presenter.loadComment(postId);
+        presenter.getIsCollectAndSum(postId);
+        presenter.getIsPraiseAndSum(postId);
     }
 
     private void initView() {
@@ -86,13 +99,18 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
         tvTopic = findViewById(R.id.tv_topic);
         tvContent = findViewById(R.id.tv_content);
         civUserIcon = findViewById(R.id.civ_icon);
-        tvUserName.setTextColor(getIntent().getIntExtra("textColor", Color.GREEN));
 
         etComment = findViewById(R.id.et_comment);
-        rlComment = findViewById(R.id.rl_comment);
         rvCommentList = findViewById(R.id.rv_comment_list);
         llComment = findViewById(R.id.ll_comment);
         tvListHeader = findViewById(R.id.tv_list_header);
+        tvCommentSum = findViewById(R.id.tv_comment_sum);
+
+        ivPraise = findViewById(R.id.iv_praise);
+        ivCollect = findViewById(R.id.iv_collect);
+        tvPraise = findViewById(R.id.tv_praise);
+        tvCollect = findViewById(R.id.tv_collect);
+
     }
 
     public void onClick(View view) {
@@ -111,6 +129,36 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
                 return;
             }
             presenter.sendComment(comment, postId);
+        } else if (view.getId() == R.id.rl_praise) {
+            if (isPraise) {
+                isPraise = false;
+                praiseSum--;
+                presenter.sendCancelPraise(postId);
+                ivPraise.setImageResource(R.mipmap.icon_praise_light);
+                tvPraise.setText(String.format("点赞(%d)", praiseSum));
+            } else {
+                isPraise = true;
+                praiseSum++;
+                presenter.sendPraiseMessage(postId);
+                ivPraise.setImageResource(R.mipmap.icon_praise_dark);
+                tvPraise.setText(String.format("点赞(%d)", praiseSum));
+            }
+        } else if (view.getId() == R.id.rl_collect) {
+            if (isCollect) {
+                isCollect = false;
+                collectSum--;
+                presenter.sendCancelCollect(postId);
+                ivCollect.setImageResource(R.mipmap.icon_collect_light);
+                tvCollect.setText(String.format("收藏(%d)", collectSum));
+            } else {
+                isCollect = true;
+                collectSum++;
+                presenter.sendCollectMessage(postId);
+                ivCollect.setImageResource(R.mipmap.icon_collect_dark);
+                tvCollect.setText(String.format("收藏(%d)", collectSum));
+            }
+        } else if (view.getId() == R.id.rl_share) {
+            showToast("暂未完成");
         }
     }
 
@@ -134,6 +182,7 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
         Glide.with(this).load(post.getAuthor().getIconUrl()).into(civUserIcon);
         tvTitle.setText(post.getTitle());
         tvUserName.setText(post.getAuthor().getName());
+        tvUserName.setTextColor(Constant.userColors[Math.abs(post.getAuthor().getObjectId().hashCode()) % Constant.userColors.length]);
         tvTime.setText(post.getCreatedAt());
         tvScan.setText(String.format("%d浏览", post.getScan()));
         StringBuilder sb = new StringBuilder("#");
@@ -165,51 +214,6 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
         });
     }
 
-    private boolean mShouldScroll;
-    private int mToPosition;
-
-    private void smoothMoveToPosition(final int position) {
-        int firstItem = rvCommentList.getChildLayoutPosition(rvCommentList.getChildAt(0));
-        int lastItem =
-                rvCommentList.getChildLayoutPosition(rvCommentList.getChildAt(rvCommentList.getChildCount() - 1));
-        if (position < firstItem) {
-            // 如果要跳转的位置在第一个可见项之前，则smoothScrollToPosition可以直接跳转
-            rvCommentList.smoothScrollToPosition(position);
-        } else if (position <= lastItem) {
-            // 如果要跳转的位置在第一个可见项之后，且在最后一个可见项之前
-            // smoothScrollToPosition根本不会动，此时调用smoothScrollBy来滑动到指定位置
-            int movePosition = position - firstItem;
-            if (movePosition >= 0 && movePosition < rvCommentList.getChildCount()) {
-                int top = rvCommentList.getChildAt(movePosition).getTop();
-                rvCommentList.smoothScrollBy(0, top);
-            }
-        } else {
-            // 如果要跳转的位置在最后可见项之后，则先调用smoothScrollToPosition将要跳转的位置滚动到可见位置
-            // 再通过onScrollStateChanged控制再次调用smoothMoveToPosition，进入上一个控制语句
-            rvCommentList.smoothScrollToPosition(position);
-            mShouldScroll = true;
-            mToPosition = position;
-        }
-    }
-
-    private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-        }
-
-        @Override
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-            super.onScrollStateChanged(recyclerView, newState);
-            if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                if (mShouldScroll) {
-                    mShouldScroll = false;
-                    smoothMoveToPosition(mToPosition);
-                }
-            }
-        }
-    };
-
     @Override
     public void sendCommentFailure(String msg) {
         showToast("发表失败");
@@ -217,7 +221,6 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
 
     @Override
     public void loadCommentSucceed(List<Comment> commentList) {
-        showToast("评论获取成功");
         this.commentList.clear();
         this.commentList.addAll(commentList);
         runOnUiThread(this::notifyChanged);
@@ -230,12 +233,41 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
         } else {
             tvListHeader.setText(String.format("%d条回帖", commentList.size()));
         }
+        tvCommentSum.setText(String.format("评论(%d)", commentList.size()));
         adapter.notifyDataSetChanged();
     }
 
     @Override
     public void loadCommentFailure(String msg) {
         showToast("评论获取失败");
+    }
+
+    @Override
+    public void loadPraiseSumAndIsPraise(int sum, boolean isPraise) {
+        this.isPraise = isPraise;
+        praiseSum = sum;
+        runOnUiThread(() -> {
+            if (isPraise) {
+                ivPraise.setImageResource(R.mipmap.icon_praise_dark);
+            } else {
+                ivPraise.setImageResource(R.mipmap.icon_praise_light);
+            }
+            tvPraise.setText(String.format("点赞(%d)", sum));
+        });
+    }
+
+    @Override
+    public void loadCollectSumAndIsCollect(int sum, boolean isCollect) {
+        this.isCollect = isCollect;
+        collectSum = sum;
+        runOnUiThread(() -> {
+            if (isCollect) {
+                ivCollect.setImageResource(R.mipmap.icon_collect_dark);
+            } else {
+                ivCollect.setImageResource(R.mipmap.icon_collect_light);
+            }
+            tvCollect.setText(String.format("收藏(%d)", sum));
+        });
     }
 
 

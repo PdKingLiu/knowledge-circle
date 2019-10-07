@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.competition.pdking.lib_base.BaseActivity;
+import com.competition.pdking.lib_common_resourse.constant.Constant;
 import com.competition.pdking.lib_common_resourse.loadingview.LoadingDialog;
 import com.competition.pdking.lib_common_resourse.toast.ToastUtils;
 import com.competition.pdking.module_community.R;
@@ -24,8 +25,6 @@ public class PostSettingActivity extends BaseActivity implements NewPostContract
 
     private TextView tvModule;
     private TextView tvChat;
-    private String[] modules = {"技术交流", "笔试面经", "猿生活", "资源分享", "我要提问", "招聘信息", "职业发展", "产品运营",
-            "留学生", "工作以后"};
     private int moduleKind = -1;
     private String[] strings;
 
@@ -80,7 +79,7 @@ public class PostSettingActivity extends BaseActivity implements NewPostContract
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == 1) {
             if (resultCode >= 10) {
-                tvModule.setText(modules[resultCode % 10]);
+                tvModule.setText(Constant.postModules[resultCode % 10]);
                 moduleKind = resultCode % 10;
             }
         } else if (requestCode == 2) {

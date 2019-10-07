@@ -25,6 +25,7 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.CountListener;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
@@ -51,7 +52,7 @@ public class PostDetailTasks {
                     } else {
                         callBack.succeed(post,
                                 post.getAuthor().getObjectId().equals(BmobUser.getCurrentUser(User.class).getObjectId()));
-                        updatePostScanList(post);
+                        updatePostScanSum(post);
                         loadContentText(post.getContent(), activity, width, callBack);
                     }
                 } else {
@@ -117,46 +118,6 @@ public class PostDetailTasks {
         return new BitmapDrawable(activity.getResources(), newbmp); // 把 bitmap 转换成 drawable 并返回
     }
 
-    /*
-     * 更新访问过的用户
-     * */
-    private void updatePostScanList(Post post) {
-        BmobRelation relation = new BmobRelation();
-        User user = new User();
-        user.setObjectId(BmobUser.getCurrentUser(User.class).getObjectId());
-        relation.add(user);
-        post.setScanList(relation);
-        post.update(post.getObjectId(), new UpdateListener() {
-            @Override
-            public void done(BmobException e) {
-                if (e == null) {
-                    updatePostScan(post);
-                }
-            }
-        });
-    }
-
-
-    /*
-     * 更新scan的数值
-     * */
-    private void updatePostScan(Post post) {
-        BmobQuery<User> query = new BmobQuery<>();
-        query.addWhereRelatedTo("scanList", new BmobPointer(post));
-        query.findObjects(new FindListener<User>() {
-            @Override
-            public void done(List<User> list, BmobException e) {
-                post.setScan(list.size());
-                post.update(new UpdateListener() {
-                    @Override
-                    public void done(BmobException e) {
-
-                    }
-                });
-            }
-        });
-    }
-
     public void sendComment(String comment, String postId, SendCommentCallBack callBack) {
         Post post = new Post();
         post.setObjectId(postId);
@@ -170,6 +131,7 @@ public class PostDetailTasks {
                 if (e == null) {
                     com.setObjectId(s);
                     callBack.succeed(com);
+                    updateCommentSum(postId);
                 } else {
                     callBack.failure(e.getMessage());
                 }
@@ -196,6 +158,211 @@ public class PostDetailTasks {
         });
     }
 
+    public void getPraiseSumAndIsPraise(String postId, PraiseCollectCallBack callBack) {
+        BmobQuery<User> query = new BmobQuery<>();
+        Post post = new Post();
+        post.setObjectId(postId);
+        query.addWhereRelatedTo("praiseList", new BmobPointer(post));
+        query.findObjects(new FindListener<User>() {
+            @Override
+            public void done(List<User> list, BmobException e) {
+                if (e == null) {
+                    User u = BmobUser.getCurrentUser(User.class);
+                    for (User user : list) {
+                        if (user.getObjectId().equals(u.getObjectId())) {
+                            callBack.succeed(list.size(), true);
+                            return;
+                        }
+                    }
+                    callBack.succeed(list.size(), false);
+                }
+            }
+        });
+    }
+
+    public void getCollectSumAndIsCollect(String postId, PraiseCollectCallBack callBack) {
+        BmobQuery<User> query = new BmobQuery<>();
+        Post post = new Post();
+        post.setObjectId(postId);
+        query.addWhereRelatedTo("collectList", new BmobPointer(post));
+        query.findObjects(new FindListener<User>() {
+            @Override
+            public void done(List<User> list, BmobException e) {
+                if (e == null) {
+                    User u = BmobUser.getCurrentUser(User.class);
+                    for (User user : list) {
+                        if (user.getObjectId().equals(u.getObjectId())) {
+                            callBack.succeed(list.size(), true);
+                            return;
+                        }
+                    }
+                    callBack.succeed(list.size(), false);
+                }
+            }
+        });
+    }
+
+    public void sendPraiseMessage(String postId) {
+        Post post = new Post();
+        post.setObjectId(postId);
+        BmobRelation relation = new BmobRelation();
+        relation.add(BmobUser.getCurrentUser(User.class));
+        post.setPraiseList(relation);
+        post.update(new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    updatePraiseSum(postId);
+                }
+            }
+        });
+    }
+
+    public void sendCancelPraise(String postId) {
+        Post post = new Post();
+        post.setObjectId(postId);
+        BmobRelation relation = new BmobRelation();
+        relation.remove(BmobUser.getCurrentUser(User.class));
+        post.setPraiseList(relation);
+        post.update(new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    updatePraiseSum(postId);
+                }
+            }
+        });
+    }
+
+    public void sendCollectMessage(String postId) {
+        Post post = new Post();
+        post.setObjectId(postId);
+        BmobRelation relation = new BmobRelation();
+        relation.add(BmobUser.getCurrentUser(User.class));
+        post.setCollectList(relation);
+        post.update(new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    updateCollectSum(postId);
+                }
+            }
+        });
+    }
+
+    public void sendCancelCollect(String postId) {
+        Post post = new Post();
+        post.setObjectId(postId);
+        BmobRelation relation = new BmobRelation();
+        relation.remove(BmobUser.getCurrentUser(User.class));
+        post.setCollectList(relation);
+        post.update(new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    updateCollectSum(postId);
+                }
+            }
+        });
+    }
+
+    private void updatePostScanSum(Post post) {
+        BmobRelation relation = new BmobRelation();
+        User user = new User();
+        user.setObjectId(BmobUser.getCurrentUser(User.class).getObjectId());
+        relation.add(user);
+        post.setScanList(relation);
+        post.update(post.getObjectId(), new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    BmobQuery<User> query = new BmobQuery<>();
+                    query.addWhereRelatedTo("scanList", new BmobPointer(post));
+                    query.count(User.class, new CountListener() {
+                        @Override
+                        public void done(Integer integer, BmobException e) {
+                            if (e == null) {
+                                post.setScan(integer);
+                                post.update(new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    private void updateCommentSum(String postId) {
+        BmobQuery<Comment> query = new BmobQuery<>();
+        Post post = new Post();
+        post.setObjectId(postId);
+        query.addWhereEqualTo("post", new BmobPointer(post));
+        query.count(Comment.class, new CountListener() {
+            @Override
+            public void done(Integer integer, BmobException e) {
+                if (e == null) {
+                    post.setComment(integer);
+                    post.update(new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    private void updatePraiseSum(String postId) {
+        BmobQuery<User> query = new BmobQuery<>();
+        Post post = new Post();
+        post.setObjectId(postId);
+        query.addWhereRelatedTo("praiseList", new BmobPointer(post));
+        query.count(User.class, new CountListener() {
+            @Override
+            public void done(Integer integer, BmobException e) {
+                if (e == null) {
+                    Post p = new Post();
+                    p.setObjectId(postId);
+                    p.setPraise(integer);
+                    p.update(new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    private void updateCollectSum(String postId) {
+        BmobQuery<User> query = new BmobQuery<>();
+        Post post = new Post();
+        post.setObjectId(postId);
+        query.addWhereRelatedTo("collectList", new BmobPointer(post));
+        query.count(User.class, new CountListener() {
+            @Override
+            public void done(Integer integer, BmobException e) {
+                if (e == null) {
+                    Post p = new Post();
+                    p.setObjectId(postId);
+                    p.setCollect(integer);
+                    p.update(new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+
+                        }
+                    });
+                }
+            }
+        });
+    }
+
     interface CallBack {
 
         void contentText(CharSequence text);
@@ -205,7 +372,6 @@ public class PostDetailTasks {
         void failure(String msg);
 
     }
-
 
     interface SendCommentCallBack {
 
@@ -220,6 +386,12 @@ public class PostDetailTasks {
         void succeed(List<Comment> commentList);
 
         void failure(String msg);
+
+    }
+
+    interface PraiseCollectCallBack {
+
+        void succeed(int sum, boolean is);
 
     }
 

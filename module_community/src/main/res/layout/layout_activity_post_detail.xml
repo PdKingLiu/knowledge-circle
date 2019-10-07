@@ -163,12 +163,12 @@
                 android:background="@android:color/white">
 
                 <TextView
+                    android:layout_centerVertical="true"
                     android:id="@+id/tv_list_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
                     android:text="0条回帖"
                     android:textColor="#3c5870"
                     android:textSize="16sp" />
@@ -197,7 +197,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="4dp"
             android:background="@android:color/white"
             android:visibility="gone">
 
@@ -228,12 +228,16 @@
                 android:onClick="onClick"
                 android:text="发表" />
 
-
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#efefef" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:background="@android:color/white">
 
             <RelativeLayout
@@ -250,22 +254,62 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/icon_comment" />
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/icon_comment_light" />
 
                     <TextView
+                        android:textColor="#707070"
+                        android:id="@+id/tv_comment_sum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="评论" />
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="3dp"
+                        android:text="评论"
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_praise"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="onClick">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/iv_praise"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/icon_praise_light" />
+
+                    <TextView
+                        android:id="@+id/tv_praise"
+                        android:textSize="12sp"
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="#707070"
+                        android:layout_gravity="center_horizontal"
+                        android:text="点赞" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:onClick="onClick"
+                android:id="@+id/rl_collect"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
@@ -277,22 +321,29 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/icon_praise" />
+                        android:id="@+id/iv_collect"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/icon_collect_light" />
 
                     <TextView
+                        android:id="@+id/tv_collect"
                         android:layout_width="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_marginTop="3dp"
+                        android:textColor="#707070"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="评论" />
+                        android:layout_gravity="center_horizontal"
+                        android:text="收藏" />
 
                 </LinearLayout>
 
             </RelativeLayout>
 
             <RelativeLayout
+                android:onClick="onClick"
+                android:id="@+id/rl_share"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
@@ -304,43 +355,19 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/icon_comment" />
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/icon_share" />
 
                     <TextView
                         android:layout_width="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_marginTop="3dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="评论" />
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/icon_comment" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="评论" />
+                        android:textColor="#707070"
+                        android:layout_gravity="center_horizontal"
+                        android:text="分享" />
 
                 </LinearLayout>
 

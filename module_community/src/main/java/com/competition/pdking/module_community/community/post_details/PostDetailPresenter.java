@@ -72,4 +72,37 @@ public class PostDetailPresenter implements PostDetailContract.Presenter {
         });
     }
 
+    @Override
+    public void getIsPraiseAndSum(String postId) {
+        tasks.getPraiseSumAndIsPraise(postId, (sum, is) -> view.loadPraiseSumAndIsPraise(sum, is));
+    }
+
+
+    @Override
+    public void getIsCollectAndSum(String postId) {
+        tasks.getCollectSumAndIsCollect(postId, (sum, is) -> view.loadCollectSumAndIsCollect(sum,
+                is));
+    }
+
+    @Override
+    public void sendPraiseMessage(String postId) {
+        tasks.sendPraiseMessage(postId);
+    }
+
+    @Override
+    public void sendCancelPraise(String postId) {
+        tasks.sendCancelPraise(postId);
+    }
+
+
+    @Override
+    public void sendCollectMessage(String postId) {
+        tasks.sendCollectMessage(postId);
+    }
+
+    @Override
+    public void sendCancelCollect(String postId) {
+        tasks.sendCancelCollect(postId);
+    }
+
 }
