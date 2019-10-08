@@ -75,7 +75,7 @@ public class NewPostActivity extends BaseActivity implements NewPostContract.Vie
             Intent intent = new Intent(this, PostSettingActivity.class);
             intent.putExtra("title", title);
             intent.putExtra("content", content);
-            startActivity(intent);
+            startActivityForResult(intent, 2);
         }
     }
 
@@ -93,6 +93,11 @@ public class NewPostActivity extends BaseActivity implements NewPostContract.Vie
                     showLoading("上传中···");
                     new Handler().postDelayed(() -> presenterOfNewPostPage.
                             uploadFile(file, NewPostActivity.this), 1000);
+                }
+                break;
+            case 2:
+                if (resultCode == 10) {
+                    finish();
                 }
                 break;
         }
@@ -115,6 +120,7 @@ public class NewPostActivity extends BaseActivity implements NewPostContract.Vie
     public void setPresenter(Object o) {
         presenterOfNewPostPage = (NewPostContract.PresenterOfNewPostPage) o;
     }
+
 
     @Override
     public void showLoading(String msg) {

@@ -25,6 +25,8 @@ public class User extends BmobUser {
 
     private BmobRelation attentionList;     //关注
 
+    private BmobRelation fansList;
+
     private Integer post;
 
     private Integer collect;
@@ -34,6 +36,16 @@ public class User extends BmobUser {
     private Integer fans;
 
     private Integer praise;
+
+    private BmobRelation praiseList;
+
+    private BmobRelation collectList;
+
+    private BmobRelation scanList;
+
+    public String getName() {
+        return name;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -67,6 +79,10 @@ public class User extends BmobUser {
         this.attentionList = attentionList;
     }
 
+    public void setFansList(BmobRelation fansList) {
+        this.fansList = fansList;
+    }
+
     public void setPost(Integer post) {
         this.post = post;
     }
@@ -87,8 +103,16 @@ public class User extends BmobUser {
         this.praise = praise;
     }
 
-    public String getName() {
-        return name;
+    public void setPraiseList(BmobRelation praiseList) {
+        this.praiseList = praiseList;
+    }
+
+    public void setCollectList(BmobRelation collectList) {
+        this.collectList = collectList;
+    }
+
+    public void setScanList(BmobRelation scanList) {
+        this.scanList = scanList;
     }
 
     public String getIconUrl() {
@@ -119,23 +143,39 @@ public class User extends BmobUser {
         return attentionList;
     }
 
+    public BmobRelation getFansList() {
+        return fansList;
+    }
+
     public Integer getPost() {
-        return post;
+        return post == null ? 0 : post;
     }
 
     public Integer getCollect() {
-        return collect;
+        return collect == null ? 0 : collect;
     }
 
     public Integer getAttention() {
-        return attention;
+        return attention == null ? 0 : attention;
     }
 
     public Integer getFans() {
-        return fans;
+        return fans == null ? 0 : fans;
     }
 
     public Integer getPraise() {
-        return praise;
+        return praise == null ? 0 : praise;
+    }
+
+    public BmobRelation getPraiseList() {
+        return praiseList;
+    }
+
+    public BmobRelation getCollectList() {
+        return collectList;
+    }
+
+    public BmobRelation getScanList() {
+        return scanList;
     }
 }

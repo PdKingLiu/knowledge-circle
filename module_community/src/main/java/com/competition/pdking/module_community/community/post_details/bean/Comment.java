@@ -11,15 +11,6 @@ import cn.bmob.v3.BmobObject;
  */
 public class Comment extends BmobObject {
 
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "Content='" + Content + '\'' +
-                ", user=" + user +
-                ", post=" + post +
-                '}';
-    }
-
     private String Content;
 
     private User user;

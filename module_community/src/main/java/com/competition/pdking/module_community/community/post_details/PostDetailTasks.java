@@ -213,6 +213,18 @@ public class PostDetailTasks {
             public void done(BmobException e) {
                 if (e == null) {
                     updatePraiseSum(postId);
+                    BmobRelation relation1 = new BmobRelation();
+                    Post post1 = new Post();
+                    post1.setObjectId(postId);
+                    relation1.add(post1);
+                    User user = new User();
+                    user.setObjectId(BmobUser.getCurrentUser(User.class).getObjectId());
+                    user.setPraiseList(relation1);
+                    user.update(new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                        }
+                    });
                 }
             }
         });
@@ -229,6 +241,18 @@ public class PostDetailTasks {
             public void done(BmobException e) {
                 if (e == null) {
                     updatePraiseSum(postId);
+                    BmobRelation relation1 = new BmobRelation();
+                    Post post1 = new Post();
+                    post1.setObjectId(postId);
+                    relation1.remove(post1);
+                    User user = new User();
+                    user.setObjectId(BmobUser.getCurrentUser(User.class).getObjectId());
+                    user.setPraiseList(relation1);
+                    user.update(new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                        }
+                    });
                 }
             }
         });
@@ -245,6 +269,18 @@ public class PostDetailTasks {
             public void done(BmobException e) {
                 if (e == null) {
                     updateCollectSum(postId);
+                    BmobRelation relation1 = new BmobRelation();
+                    Post post1 = new Post();
+                    post1.setObjectId(postId);
+                    relation1.add(post1);
+                    User user = new User();
+                    user.setObjectId(BmobUser.getCurrentUser(User.class).getObjectId());
+                    user.setCollectList(relation1);
+                    user.update(new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                        }
+                    });
                 }
             }
         });
@@ -261,6 +297,18 @@ public class PostDetailTasks {
             public void done(BmobException e) {
                 if (e == null) {
                     updateCollectSum(postId);
+                    BmobRelation relation1 = new BmobRelation();
+                    Post post1 = new Post();
+                    post1.setObjectId(postId);
+                    relation1.remove(post1);
+                    User user = new User();
+                    user.setObjectId(BmobUser.getCurrentUser(User.class).getObjectId());
+                    user.setCollectList(relation1);
+                    user.update(new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                        }
+                    });
                 }
             }
         });
@@ -293,6 +341,18 @@ public class PostDetailTasks {
                         }
                     });
                 }
+            }
+        });
+
+        // 更新user scan的列表
+        Post post1 = new Post();
+        post1.setObjectId(post.getObjectId());
+        BmobRelation relation2 = new BmobRelation();
+        relation2.add(post1);
+        user.setScanList(relation2);
+        user.update(new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
             }
         });
     }

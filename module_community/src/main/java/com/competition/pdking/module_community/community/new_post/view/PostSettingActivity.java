@@ -17,6 +17,7 @@ import com.competition.pdking.module_community.R;
 import com.competition.pdking.module_community.community.new_post.NewPostContract;
 import com.competition.pdking.module_community.community.new_post.NewPostPresenter;
 import com.competition.pdking.module_community.community.new_post.bean.Post;
+import com.competition.pdking.module_community.community.post_details.view.PostDetailActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -71,7 +72,7 @@ public class PostSettingActivity extends BaseActivity implements NewPostContract
             post.setContent(content);
             post.setKind(moduleKind);
             post.setTopic(new ArrayList<>(Arrays.asList(strings)));
-            new Handler().postDelayed(() -> presenterOfNewPostPage.releasePost(post), 1000);
+            new Handler().postDelayed(() -> presenterOfNewPostPage.releasePost(post), 1500);
         }
     }
 
@@ -101,6 +102,11 @@ public class PostSettingActivity extends BaseActivity implements NewPostContract
     public void releaseSucceed(String postId) {
         hideLoading();
         showToast("发布成功");
+        Intent intent = new Intent(this, PostDetailActivity.class);
+        intent.putExtra("postId", postId);
+        setResult(10);
+        startActivity(intent);
+        finish();
     }
 
     @Override
