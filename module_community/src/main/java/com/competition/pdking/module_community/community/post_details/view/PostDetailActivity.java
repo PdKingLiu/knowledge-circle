@@ -4,7 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.RequiresApi;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -57,6 +59,8 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
     private ImageView ivCollect;
     private TextView tvPraise;
     private TextView tvCollect;
+    private SwipeRefreshLayout srlRefresh;
+
 
     private boolean isPraise = false;
     private boolean isCollect = false;
@@ -70,6 +74,7 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_activity_post_detail);
         postId = getIntent().getStringExtra("postId");
+        presenter = new PostDetailPresenter(this);
         initView();
         initVar();
         initDate();
@@ -80,10 +85,11 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
         adapter = new CommentAdapter(commentList, this);
         rvCommentList.setLayoutManager(new LinearLayoutManager(this));
         rvCommentList.setAdapter(adapter);
+        srlRefresh.setOnRefreshListener(() -> new Handler().postDelayed(this::initDate, 1500));
     }
 
+
     private void initDate() {
-        presenter = new PostDetailPresenter(this);
         presenter.loadPostData(postId, this, (int) (((WindowManager) this.
                 getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getWidth() * 0.75));
         presenter.loadComment(postId);
@@ -110,6 +116,9 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
         ivCollect = findViewById(R.id.iv_collect);
         tvPraise = findViewById(R.id.tv_praise);
         tvCollect = findViewById(R.id.tv_collect);
+
+        srlRefresh = findViewById(R.id.srl_refresh);
+        srlRefresh.setColorSchemeColors(0xfffea419);
 
     }
 
@@ -173,6 +182,9 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
 
     @Override
     public void loadDataSucceed(Post post, boolean isAuthor) {
+        if (srlRefresh.isRefreshing()) {
+            srlRefresh.setRefreshing(false);
+        }
         this.post = post;
         runOnUiThread(this::loadPage);
     }
@@ -194,6 +206,9 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
 
     @Override
     public void loadDataFailure(String msg) {
+        if (srlRefresh.isRefreshing()) {
+            srlRefresh.setRefreshing(false);
+        }
         showToast("加载失败");
     }
 

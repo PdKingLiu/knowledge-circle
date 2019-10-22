@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="圈子"
+                android:text="探索"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
@@ -96,12 +96,71 @@
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        </android.support.v7.widget.RecyclerView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/ll_find"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_solid"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:src="@mipmap/icon_find2" />
+
+                    <View
+                        android:layout_width="70dp"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="#e5e5e5" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="15dp"
+                        android:text="发现"
+                        android:textColor="#707070"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="1"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp">
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
 
     </android.support.design.widget.CoordinatorLayout>
 
