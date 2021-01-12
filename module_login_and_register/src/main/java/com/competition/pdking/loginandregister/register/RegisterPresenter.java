@@ -1,9 +1,6 @@
 package com.competition.pdking.loginandregister.register;
 
-/**
- * @author liupeidong
- * Created on 2019/9/8 15:42
- */
+
 public class RegisterPresenter implements RegisterContract.Presenter {
 
     private RegisterContract.View view;

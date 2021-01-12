@@ -11,12 +11,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.competition.pdking.lib_base.BaseActivity;
+import com.competition.pdking.lib_base.com.competition.pdking.bean.Post;
 import com.competition.pdking.lib_common_resourse.toast.ToastUtils;
 import com.competition.pdking.module_community.R;
 import com.competition.pdking.module_community.community.community_list_page.adapter.PostAdapter;
-import com.competition.pdking.module_community.community.new_post.bean.Post;
 import com.competition.pdking.module_community.community.new_post.view.NewPostActivity;
-import com.competition.pdking.module_community.community.post_details.view.PostDetailActivity;
+import com.pdking.detail.post_details.view.PostDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;

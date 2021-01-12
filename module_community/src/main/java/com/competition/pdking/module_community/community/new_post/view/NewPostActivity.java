@@ -14,12 +14,12 @@ import android.widget.EditText;
 import com.competition.pdking.lib_base.BaseActivity;
 import com.competition.pdking.lib_common_resourse.loadingview.LoadingDialog;
 import com.competition.pdking.lib_common_resourse.toast.ToastUtils;
+import com.competition.pdking.lib_common_resourse.utils.FileUtils;
 import com.competition.pdking.module_community.R;
 import com.competition.pdking.module_community.community.new_post.NewPostContract;
 import com.competition.pdking.module_community.community.new_post.NewPostPresenter;
+import com.competition.pdking.module_community.community.new_post.rich_edittext.RichEditText;
 import com.competition.pdking.module_community.community.new_post.weight.InsertLinkDialog;
-import com.competition.pdking.module_community.community.rich_edittext.RichEditText;
-import com.competition.pdking.module_community.community.utils.FileUtils;
 
 import java.io.File;
 import java.util.Objects;

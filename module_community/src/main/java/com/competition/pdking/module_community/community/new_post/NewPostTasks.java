@@ -2,9 +2,9 @@ package com.competition.pdking.module_community.community.new_post;
 
 import android.content.Context;
 
+import com.competition.pdking.lib_base.com.competition.pdking.bean.PictureUploadBean;
+import com.competition.pdking.lib_base.com.competition.pdking.bean.Post;
 import com.competition.pdking.lib_base.com.competition.pdking.bean.User;
-import com.competition.pdking.module_community.community.new_post.bean.PictureUploadBean;
-import com.competition.pdking.module_community.community.new_post.bean.Post;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -23,10 +23,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-/**
- * @author liupeidong
- * Created on 2019/10/4 13:17
- */
+
 public class NewPostTasks {
 
     private NewPostContract.PresenterOfNewPostPage presenterOfNewPostPage;
@@ -52,9 +49,8 @@ public class NewPostTasks {
                         "image/jpeg"), file))
                 .build();
         Request request = new Request.Builder()
-                .addHeader("token", "liupeidong")
                 .post(body)
-                .url("http://www.shidongxuan.top/smartMeeting_Web/liuUpload/file")
+                .url("http://204.44.94.217:3003/upload")
                 .build();
         File finalFile = file;
         client.newCall(request).enqueue(new Callback() {
@@ -65,16 +61,16 @@ public class NewPostTasks {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                PictureUploadBean bean;
+                PictureUploadBean bean = null;
                 String s = response.body().string();
+                boolean isOk = true;
                 try {
                     bean = new Gson().fromJson(s, PictureUploadBean.class);
                 } catch (Exception e) {
-                    callBack.failure("上传失败");
-                    return;
+                    isOk = false;
                 }
-                if (bean.status == 0) {
-                    callBack.succeed(bean.data, finalFile);
+                if (isOk) {
+                    callBack.succeed(bean.url, finalFile);
                 } else {
                     callBack.failure("上传失败");
                 }

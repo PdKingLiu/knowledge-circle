@@ -10,14 +10,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.competition.pdking.lib_base.BaseActivity;
+import com.competition.pdking.lib_base.com.competition.pdking.bean.Post;
 import com.competition.pdking.lib_common_resourse.constant.Constant;
 import com.competition.pdking.lib_common_resourse.loadingview.LoadingDialog;
 import com.competition.pdking.lib_common_resourse.toast.ToastUtils;
 import com.competition.pdking.module_community.R;
 import com.competition.pdking.module_community.community.new_post.NewPostContract;
 import com.competition.pdking.module_community.community.new_post.NewPostPresenter;
-import com.competition.pdking.module_community.community.new_post.bean.Post;
-import com.competition.pdking.module_community.community.post_details.view.PostDetailActivity;
+import com.pdking.detail.post_details.view.PostDetailActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;

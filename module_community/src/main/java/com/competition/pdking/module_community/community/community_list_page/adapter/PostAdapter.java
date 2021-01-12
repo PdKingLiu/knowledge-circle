@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.competition.pdking.lib_base.com.competition.pdking.bean.Post;
 import com.competition.pdking.lib_common_resourse.constant.Constant;
 import com.competition.pdking.module_community.R;
-import com.competition.pdking.module_community.community.new_post.bean.Post;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,10 +23,7 @@ import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * @author liupeidong
- * Created on 2019/10/5 10:43
- */
+
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> implements View.OnClickListener {
 
     private List<Post> list;

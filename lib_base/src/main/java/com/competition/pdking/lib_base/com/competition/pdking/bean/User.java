@@ -1,12 +1,8 @@
 package com.competition.pdking.lib_base.com.competition.pdking.bean;
 
 import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.datatype.BmobRelation;
 
-/**
- * @author liupeidong
- * Created on 2019/9/8 17:40
- */
+
 public class User extends BmobUser {
 
     private String name;        //昵称
@@ -23,25 +19,11 @@ public class User extends BmobUser {
 
     private String work;        //从事的工作
 
-    private BmobRelation attentionList;     //关注
+    private String location;        // 住址
 
-    private BmobRelation fansList;
+    private String introduction;    // 简介
 
-    private Integer post;
-
-    private Integer collect;
-
-    private Integer attention;
-
-    private Integer fans;
-
-    private Integer praise;
-
-    private BmobRelation praiseList;
-
-    private BmobRelation collectList;
-
-    private BmobRelation scanList;
+    private String graduation;      // 毕业年份
 
     public String getName() {
         return name;
@@ -75,44 +57,12 @@ public class User extends BmobUser {
         this.work = work;
     }
 
-    public void setAttentionList(BmobRelation attentionList) {
-        this.attentionList = attentionList;
+    public String getGraduation() {
+        return graduation;
     }
 
-    public void setFansList(BmobRelation fansList) {
-        this.fansList = fansList;
-    }
-
-    public void setPost(Integer post) {
-        this.post = post;
-    }
-
-    public void setCollect(Integer collect) {
-        this.collect = collect;
-    }
-
-    public void setAttention(Integer attention) {
-        this.attention = attention;
-    }
-
-    public void setFans(Integer fans) {
-        this.fans = fans;
-    }
-
-    public void setPraise(Integer praise) {
-        this.praise = praise;
-    }
-
-    public void setPraiseList(BmobRelation praiseList) {
-        this.praiseList = praiseList;
-    }
-
-    public void setCollectList(BmobRelation collectList) {
-        this.collectList = collectList;
-    }
-
-    public void setScanList(BmobRelation scanList) {
-        this.scanList = scanList;
+    public void setGraduation(String graduation) {
+        this.graduation = graduation;
     }
 
     public String getIconUrl() {
@@ -139,43 +89,19 @@ public class User extends BmobUser {
         return work;
     }
 
-    public BmobRelation getAttentionList() {
-        return attentionList;
+    public String getIntroduction() {
+        return introduction;
     }
 
-    public BmobRelation getFansList() {
-        return fansList;
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
     }
 
-    public Integer getPost() {
-        return post == null ? 0 : post;
+    public String getLocation() {
+        return location;
     }
 
-    public Integer getCollect() {
-        return collect == null ? 0 : collect;
-    }
-
-    public Integer getAttention() {
-        return attention == null ? 0 : attention;
-    }
-
-    public Integer getFans() {
-        return fans == null ? 0 : fans;
-    }
-
-    public Integer getPraise() {
-        return praise == null ? 0 : praise;
-    }
-
-    public BmobRelation getPraiseList() {
-        return praiseList;
-    }
-
-    public BmobRelation getCollectList() {
-        return collectList;
-    }
-
-    public BmobRelation getScanList() {
-        return scanList;
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

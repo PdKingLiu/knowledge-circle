@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="280dp"
+    android:layout_height="280dp"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/profile_like_count_dialog_ic"
+        tool:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/profileLikeCountTv"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:gravity="center_horizontal"
+        android:paddingTop="15sp"
+        android:textColor="#404040"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/profileLikeCountConfirmTv"
+        android:layout_width="240dp"
+        android:layout_height="?actionBarSize"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/profile_like_count_dialog_button_bg"
+        android:foreground="@drawable/common_press_ripple_circle_rounded_bg"
+        android:gravity="center"
+        android:text="确定"
+        android:textColor="#222222"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        tool:ignore="UnusedAttribute" />
+
+</LinearLayout>

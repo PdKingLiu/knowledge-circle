@@ -15,11 +15,7 @@ import java.lang.reflect.Method;
 
 import dalvik.system.DexClassLoader;
 
-/**
- * Created by vimerzhao
- * Date: 2018/9/30
- * Description: 插件框架基础功能
- */
+
 public class PluginManager {
     private final static String TAG = "Lpp";
     private static PluginManager sInstance;

@@ -1,9 +1,6 @@
 package com.competition.pdking.lib_common_resourse.constant;
 
-/**
- * @author liupeidong
- * Created on 2019/10/7 12:19
- */
+
 public class Constant {
 
 

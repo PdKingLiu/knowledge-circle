@@ -7,10 +7,7 @@ import com.competition.pdking.loginandregister.BuildConfig;
 
 import cn.bmob.v3.Bmob;
 
-/**
- * @author liupeidong
- * Created on 2019/9/5 22:58
- */
+
 public class MyApp extends Application {
 
     @Override

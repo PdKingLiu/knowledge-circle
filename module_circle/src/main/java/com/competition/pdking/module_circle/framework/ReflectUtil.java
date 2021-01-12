@@ -8,11 +8,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-/**
- * Created by vimerzhao
- * Date: 2018/9/30
- * Description: 反射操作集中放在这，保证逻辑清晰
- */
+
 public class ReflectUtil {
     public static final String METHOD_currentActivityThread = "currentActivityThread";
     public static final String CLASS_ActivityThread = "android.app.ActivityThread";

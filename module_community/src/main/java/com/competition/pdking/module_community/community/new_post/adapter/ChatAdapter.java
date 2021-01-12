@@ -11,10 +11,7 @@ import com.competition.pdking.module_community.R;
 
 import java.util.List;
 
-/**
- * @author liupeidong
- * Created on 2019/10/3 22:18
- */
+
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> implements View.OnClickListener {
 
     private List<String> list;

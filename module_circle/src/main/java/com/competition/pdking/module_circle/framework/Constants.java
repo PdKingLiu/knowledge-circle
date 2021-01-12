@@ -2,11 +2,7 @@ package com.competition.pdking.module_circle.framework;
 
 import android.os.Environment;
 
-/**
- * Created by vimerzhao
- * Date: 2018/9/30
- * Description:
- */
+
 public class Constants {
     public final static String KEY_IS_PLUGIN = "key_is_plugin";
     public final static String KEY_PACKAGE = "key_package";

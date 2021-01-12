@@ -12,10 +12,7 @@ import android.widget.EditText;
 import com.competition.pdking.lib_common_resourse.toast.ToastUtils;
 import com.competition.pdking.module_community.R;
 
-/**
- * @author liupeidong
- * Created on 2019/10/3 18:00
- */
+
 public class InsertLinkDialog extends Dialog implements View.OnClickListener {
 
     private EditText etName;

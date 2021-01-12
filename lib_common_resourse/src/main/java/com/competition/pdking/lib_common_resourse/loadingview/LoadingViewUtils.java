@@ -10,10 +10,7 @@ import android.widget.PopupWindow;
 import com.competition.pdking.lib_common_resourse.R;
 import com.mingle.widget.LoadingView;
 
-/**
- * @author liupeidong
- * Created on 2019/9/7 17:45
- */
+
 public class LoadingViewUtils {
 
     private PopupWindow mPopupWindow;

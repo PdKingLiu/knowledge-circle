@@ -43,7 +43,7 @@ public class MainActivity extends BaseActivity implements BaseView {
 
     private void initFragment() {
         if (fragments == null) {
-            fragments = new Fragment[4];
+            fragments = new Fragment[3];
         }
         fragments[0] = ARouterUtils.getCircleFragment();
         if (mFragmentManager == null) {
@@ -94,30 +94,17 @@ public class MainActivity extends BaseActivity implements BaseView {
                         transaction.show(fragments[1]);
                     }
                     break;
-                case R.id.bnv_news:
-                    if (bnvIndex == R.id.bnv_news) {
-                        break;
-                    }
-                    hideFragment();
-                    bnvIndex = R.id.bnv_news;
-                    if (fragments[2] == null) {
-                        fragments[2] = ARouterUtils.getNewsFragment();
-                        transaction.add(R.id.fl_container, fragments[2], "news");
-                    } else {
-                        transaction.show(fragments[2]);
-                    }
-                    break;
                 case R.id.bnv_my:
                     if (bnvIndex == R.id.bnv_my) {
                         break;
                     }
                     hideFragment();
                     bnvIndex = R.id.bnv_my;
-                    if (fragments[3] == null) {
-                        fragments[3] = ARouterUtils.getMyFragment();
-                        transaction.add(R.id.fl_container, fragments[3], "my");
+                    if (fragments[2] == null) {
+                        fragments[2] = ARouterUtils.getMyFragment();
+                        transaction.add(R.id.fl_container, fragments[2], "my");
                     } else {
-                        transaction.show(fragments[3]);
+                        transaction.show(fragments[2]);
                     }
                     break;
             }
@@ -142,14 +129,9 @@ public class MainActivity extends BaseActivity implements BaseView {
                     fragmentTransaction.hide(fragments[1]);
                 }
                 break;
-            case R.id.bnv_news:
+            case R.id.bnv_my:
                 if (fragments != null && fragments[2] != null && !fragments[2].isHidden()) {
                     fragmentTransaction.hide(fragments[2]);
-                }
-                break;
-            case R.id.bnv_my:
-                if (fragments != null && fragments[3] != null && !fragments[3].isHidden()) {
-                    fragmentTransaction.hide(fragments[3]);
                 }
                 break;
         }

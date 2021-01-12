@@ -43,6 +43,7 @@ public class CircleFragment extends Fragment {
             if (mPluginManager.loadPlugin(Constants.PLUGIN_PATH)) {
                 try {
                     Intent intent = new Intent();
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.setClassName("com.plugin.demo.plugindemo2", "com.plugin.demo" +
                             ".plugindemo2" +
                             ".HotPostActivity");

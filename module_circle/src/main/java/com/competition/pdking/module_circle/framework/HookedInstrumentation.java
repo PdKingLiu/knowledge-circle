@@ -9,15 +9,11 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
-
 import android.view.ContextThemeWrapper;
+
 import java.lang.reflect.Method;
 
-/**
- * Created by vimerzhao
- * Date: 2018/9/30
- * Description:
- */
+
 public class HookedInstrumentation extends Instrumentation implements Handler.Callback {
     public static final String TAG = "Lpp";
     protected Instrumentation mBase;

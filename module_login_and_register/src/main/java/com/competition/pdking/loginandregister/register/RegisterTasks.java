@@ -1,6 +1,7 @@
 package com.competition.pdking.loginandregister.register;
 
 import com.competition.pdking.lib_base.com.competition.pdking.bean.User;
+import com.competition.pdking.lib_base.com.competition.pdking.bean.UserData;
 
 import java.util.List;
 
@@ -12,10 +13,7 @@ import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
-/**
- * @author liupeidong
- * Created on 2019/9/8 16:05
- */
+
 public class RegisterTasks {
 
     private RegisterContract.Presenter presenter;
@@ -93,18 +91,23 @@ public class RegisterTasks {
         user.setName("用户" + phone);
         user.setUsername(phone);
         user.setPassword(password);
-        user.setIconUrl("http://www.shidongxuan.top/image/61c57028-2ce2-416a-abd1-991da2126f55" +
-                ".jpg");
+        user.setIconUrl("http://204.44.94.217:3003/uploads/upload_7a20e09d221568c2ef71dc87135587d9.jpg");
         user.signUp(new SaveListener<User>() {
             @Override
             public void done(User user, BmobException e) {
                 if (e == null) {
-                    callBack.succeed();
+                    UserData userData = new UserData();
+                    userData.setUser(user);
+                    userData.save(new SaveListener<String>() {
+                        @Override
+                        public void done(String s, BmobException e) {
+                            callBack.succeed();
+                        }
+                    });
                 } else {
                     callBack.failure(e.getMessage());
                 }
             }
         });
     }
-
 }

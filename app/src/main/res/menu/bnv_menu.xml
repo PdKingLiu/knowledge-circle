@@ -12,11 +12,6 @@
         android:title="社区" />
 
     <item
-        android:id="@+id/bnv_news"
-        android:icon="@drawable/bnv_news_selector"
-        android:title="消息" />
-
-    <item
         android:id="@+id/bnv_my"
         android:icon="@drawable/bnv_my_selector"
         android:title="我" />

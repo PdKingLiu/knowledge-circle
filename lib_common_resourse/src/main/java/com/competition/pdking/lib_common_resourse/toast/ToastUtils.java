@@ -9,10 +9,7 @@ import android.widget.Toast;
 
 import com.competition.pdking.lib_common_resourse.R;
 
-/**
- * @author liupeidong
- * Created on 2019/9/8 16:11
- */
+
 public class ToastUtils {
 
     public static void showToast(Context context, String msg) {
@@ -26,5 +23,4 @@ public class ToastUtils {
             toast.show();
         }
     }
-
 }

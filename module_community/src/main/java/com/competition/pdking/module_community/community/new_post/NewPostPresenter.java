@@ -2,14 +2,11 @@ package com.competition.pdking.module_community.community.new_post;
 
 import android.content.Context;
 
-import com.competition.pdking.module_community.community.new_post.bean.Post;
+import com.competition.pdking.lib_base.com.competition.pdking.bean.Post;
 
 import java.io.File;
 
-/**
- * @author liupeidong
- * Created on 2019/10/4 13:18
- */
+
 public class NewPostPresenter implements NewPostContract.PresenterOfNewPostPage {
 
     private NewPostContract.ViewOfNewPostPage viewOfNewPostPage;

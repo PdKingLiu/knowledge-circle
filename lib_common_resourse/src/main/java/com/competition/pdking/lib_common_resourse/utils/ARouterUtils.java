@@ -4,10 +4,7 @@ import android.support.v4.app.Fragment;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 
-/**
- * @author liupeidong
- * Created on 2019/9/9 21:21
- */
+
 public class ARouterUtils {
 
     public static String CircleFragmentPath = "/module_circle/circle_fragment";

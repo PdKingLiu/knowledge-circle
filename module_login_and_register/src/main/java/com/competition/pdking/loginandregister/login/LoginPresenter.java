@@ -2,10 +2,7 @@ package com.competition.pdking.loginandregister.login;
 
 import com.competition.pdking.lib_base.com.competition.pdking.bean.User;
 
-/**
- * @author liupeidong
- * Created on 2019/9/8 12:36
- */
+
 public class LoginPresenter implements LoginContract.Presenter {
 
     private LoginContract.View view;

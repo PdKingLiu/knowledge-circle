@@ -5,7 +5,7 @@ ext {
     android = [
             compileSdkVersion: 28,
             applicationId    : "com.competition.pdking.knowledgecircle",
-            minSdkVersion    : 19,
+            minSdkVersion    : 21,
             targetSdkVersion : 28,
             versionCode      : 1,
             versionName      : "1.0",
@@ -25,12 +25,14 @@ ext {
             rxandroid       : 'io.reactivex.rxjava2:rxandroid:2.1.0',
             okio            : 'com.squareup.okio:okio:2.1.0',
             gson            : 'com.google.code.gson:gson:2.8.5',
+            // 网络请求
             okhttp          : 'com.squareup.okhttp3:okhttp:3.12.0',
 
             shapeLoadingView: 'com.github.zzz40500:android-shapeLoadingView:1.0.3.2',
 
             circleimageview : 'de.hdodenhof:circleimageview:3.0.0',
 
+            // 图片加载
             glide           : 'com.github.bumptech.glide:glide:4.8.0',
             glide_compiler  : 'com.github.bumptech.glide:compiler:4.8.0',
 
