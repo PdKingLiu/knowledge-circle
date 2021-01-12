@@ -8,6 +8,21 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"></application>
+        android:theme="@style/AppTheme">
+
+        <activity android:name=".community.community_list_page.CommunityListPageActivity">
+        </activity>
+        <activity android:name=".community.new_post.view.ChatSettingActivity">
+        </activity>
+        <activity android:name=".community.new_post.view.ModuleSettingActivity">
+        </activity>
+        <activity android:name=".community.new_post.view.NewPostActivity">
+        </activity>
+        <activity android:name=".community.new_post.view.PostSettingActivity">
+        </activity>
+        <activity android:name=".community.post_details.view.PostDetailActivity">
+        </activity>
+
+    </application>
 
 </manifest>
